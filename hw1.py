@@ -37,18 +37,18 @@ def largest2(l):
     >>> largest2([7, 6, 5, 4, 3, 2, 1])
     (7, 6)
     """
-#    max1 = l[0]
-#    for n in l:
-#        if n > max1:
-#            max1 = n
-#    if l[0] != max1:
-#        max2 = l[0]
-#    else:
-#        max2 = l[1]
-#    for n in l:
-#        if n > max2 and n < max1:
-#            max2 = n
-#    return (max1, max2)
+    max1 = l[0]
+    for n in l:
+        if n > max1:
+            max1 = n
+    if l[0] != max1:
+        max2 = l[0]
+    else:
+        max2 = l[1]
+    for n in l:
+        if n > max2 and n < max1:
+            max2 = n
+    return (max1, max2)
 
 ############################################################################
 #
@@ -56,19 +56,33 @@ def largest2(l):
 # Reverse a list in place,
 # and returned the reversed list.
 #
-# Running Time:
+# Running Time: O(n/2)
 ############################################################################
 
 
-# def reverse(l):
-#    """
-#    >>> l = [1, 2, 3, 4, 5]
-#    >>> reverse(l)
-#    [5, 4, 3, 2, 1]
-#    >>> l
-#    [5, 4, 3, 2, 1]
-#    """
-#    pass
+def reverse(l):
+    """
+    >>> l = [1, 2, 3, 4, 5]
+    >>> reverse(l)
+    [5, 4, 3, 2, 1]
+    >>> l
+    [5, 4, 3, 2, 1]
+    >>> l = [1, 2, 3, 4, 5, 6]
+    >>> reverse(l)
+    [6, 5, 4, 3, 2, 1]
+    """
+    i = 0
+    j = len(l) - 1
+    mid = len(l) // 2
+    if not mid % 2:
+        mid += 1
+    while i <= mid and j >= mid:
+        temp = l[i]
+        l[i] = l[j]
+        l[j] = temp
+        i += 1
+        j -= 1
+    return l
 
 ############################################################################
 #
