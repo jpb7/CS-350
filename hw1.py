@@ -1,9 +1,24 @@
 
 # CS 350: Homework 1
 # Due: Week of 4/4
-# Name: 
+# Name: Jacob Bentley
 
 # This homework is largely review, and to make sure you have a working version of python.
+
+# Additional functions.
+
+# def mergeSort(arr):
+#    """
+#    >>> mergeSort([3, 1, 4, 2, 6, 5])
+#    [1, 2, 3, 4, 5, 6]
+#    """
+#    mid = len(arr) // 2
+#    if not mid:
+#        return arr
+#    left = mergeSort(arr[:mid])
+#    right = mergeSort(arr[mid:])
+#    print("left:", left)
+#    print("right:", right)
 
 ############################################################################
 #
@@ -11,8 +26,10 @@
 # Find the largest two elements in a list.
 # Return your answer in a tuple as (largest, secondLargest)
 #
-# Running Time: 
+# Running Time: O(n**2)
 ############################################################################
+
+
 def largest2(l):
     """
     >>> largest2([1, 2, 3, 4, 5, 6, 7])
@@ -20,7 +37,18 @@ def largest2(l):
     >>> largest2([7, 6, 5, 4, 3, 2, 1])
     (7, 6)
     """
-    pass
+#    max1 = l[0]
+#    for n in l:
+#        if n > max1:
+#            max1 = n
+#    if l[0] != max1:
+#        max2 = l[0]
+#    else:
+#        max2 = l[1]
+#    for n in l:
+#        if n > max2 and n < max1:
+#            max2 = n
+#    return (max1, max2)
 
 ############################################################################
 #
@@ -28,18 +56,19 @@ def largest2(l):
 # Reverse a list in place,
 # and returned the reversed list.
 #
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def reverse(l):
-    """
-    >>> l = [1, 2, 3, 4, 5]
-    >>> reverse(l)
-    [5, 4, 3, 2, 1]
-    >>> l
-    [5, 4, 3, 2, 1]
-    """
-    pass
+
+# def reverse(l):
+#    """
+#    >>> l = [1, 2, 3, 4, 5]
+#    >>> reverse(l)
+#    [5, 4, 3, 2, 1]
+#    >>> l
+#    [5, 4, 3, 2, 1]
+#    """
+#    pass
 
 ############################################################################
 #
@@ -47,18 +76,19 @@ def reverse(l):
 # Compute the transpose of a matrix in place.
 #
 # What is the input size measuring?
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def transpose(m):
-    """
-    >>> m = [[1,2,3],[4,5,6],[7,8,9]]
-    >>> transpose(m)
-    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-    >>> m
-    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-    """
-    pass
+
+# def transpose(m):
+#    """
+#    >>> m = [[1,2,3],[4,5,6],[7,8,9]]
+#    >>> transpose(m)
+#    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+#    >>> m
+#    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+#    """
+#    pass
 
 ############################################################################
 #
@@ -67,15 +97,16 @@ def transpose(m):
 # The distance between two points (x1,y1) and (x2,y2) is:
 # d = sqrt((x2-x1)^2 + (y2-y1)^2)
 #
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def pointDist(points):
-    """
-    >>> pointDist([(1,1), (4,5), (13,6)])
-    5
-    """
-    pass
+
+# def pointDist(points):
+#    """
+#    >>> pointDist([(1,1), (4,5), (13,6)])
+#    5
+#    """
+#    pass
 
 ############################################################################
 #
@@ -84,15 +115,16 @@ def pointDist(points):
 # For the running time A is an m*n matrix, and B is an n*l matrix.
 #
 # what is the size of the output? ?*?
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def matMul(A,B):
-    """
-    >>> matMul([[1, 2, 3], [4, 5, 6]], [[7, 8], [9, 10], [11, 12]])
-    [[58, 64], [139, 154]]
-    """
-    pass
+
+# def matMul(A, B):
+#    """
+#    >>> matMul([[1, 2, 3], [4, 5, 6]], [[7, 8], [9, 10], [11, 12]])
+#    [[58, 64], [139, 154]]
+#    """
+#    pass
 
 
 ############################################################################
@@ -101,24 +133,24 @@ def matMul(A,B):
 # Compute the number of 1s that would be in the binary representation of x
 # for example: 30 = 11110 in base 2, and it has 4 1s.
 #
-# For full credit, you should assume that 
+# For full credit, you should assume that
 # arithmetic operations are *not* constant time.
 # bitwise operations are constant time though.
 #
 # What is the input size?
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def popcount(x):
-    """
-    >>> popcount(7)
-    3
-    >>> popcount(30)
-    4
-    >>> popcount(256)
-    1
-    """
-    pass
+# def popcount(x):
+#    """
+#    >>> popcount(7)
+#    3
+#    >>> popcount(30)
+#    4
+#    >>> popcount(256)
+#    1
+#    """
+#    pass
 
 ############################################################################
 #
@@ -129,19 +161,20 @@ def popcount(x):
 # You can assume that arithmetic operations are constant time for this algorithm.
 #
 # What is the input size?
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def isqrt(x):
-    """
-    >>> isqrt(6)
-    2
-    >>> isqrt(121)
-    10
-    >>> isqrt(64)
-    8
-    """
-    pass
+
+# def isqrt(x):
+#    """
+#    >>> isqrt(6)
+#    2
+#    >>> isqrt(121)
+#    10
+#    >>> isqrt(64)
+#    8
+#    """
+#    pass
 
 ############################################################################
 #
@@ -162,17 +195,18 @@ def isqrt(x):
 #      "    s"]
 #
 # what is your input size?
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def wordSearch(word,grid):
-    """
-    >>> s = "bats"
-    >>> g = ["abrql", "exayi", "postn", "cbkrs"]
-    >>> wordSearch(s,g)
-    True
-    """
-    pass
+
+# def wordSearch(word, grid):
+#    """
+#    >>> s = "bats"
+#    >>> g = ["abrql", "exayi", "postn", "cbkrs"]
+#    >>> wordSearch(s,g)
+#    True
+#    """
+#    pass
 
 ############################################################################
 #
@@ -197,15 +231,16 @@ def wordSearch(word,grid):
 #  /   \
 # *-----*
 #
-# Running Time: 
+# Running Time:
 ############################################################################
 
-def convexHull(points):
-    """
-    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
-    [(1, 1), (4, 5), (7, 1)]
-    """
-    pass
+
+# def convexHull(points):
+#    """
+#    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
+#    [(1, 1), (4, 5), (7, 1)]
+#    """
+#    pass
 
 ############################################################################
 #
@@ -220,6 +255,7 @@ def convexHull(points):
 # 4. f(n) = sum(i=0, n, log(i))
 # 5. f(n) = log(n!)
 ############################################################################
+
 
 if __name__ == "__main__":
     import doctest
