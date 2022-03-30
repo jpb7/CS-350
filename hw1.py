@@ -7,18 +7,42 @@
 
 # Additional functions.
 
-# def mergeSort(arr):
-#    """
-#    >>> mergeSort([3, 1, 4, 2, 6, 5])
-#    [1, 2, 3, 4, 5, 6]
-#    """
-#    mid = len(arr) // 2
-#    if not mid:
-#        return arr
-#    left = mergeSort(arr[:mid])
-#    right = mergeSort(arr[mid:])
-#    print("left:", left)
-#    print("right:", right)
+def mergeSort(arr):
+    """
+    >>> mergeSort([3, 1, 4, 2, 6, 5])
+    [1, 2, 3, 4, 5, 6]
+    >>> mergeSort([3, 1, 4, 2, 5])
+    [1, 2, 3, 4, 5]
+    """
+    mid = len(arr) // 2
+    if not mid:
+        return arr
+    left = mergeSort(arr[:mid])
+    right = mergeSort(arr[mid:])
+    return merge(left, right)
+
+
+def merge(left, right):
+    if not left and not right:
+        return []
+    if not left:
+        return right
+    if not right:
+        return left
+    merged = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            merged += [left[i]]
+            i += 1
+        elif right[j] < left[i]:
+            merged += [right[j]]
+            j += 1
+    if i < len(left):
+        merged += left[i:]
+    elif j < len(right):
+        merged += right[j:]
+    return merged
 
 ############################################################################
 #
@@ -26,7 +50,7 @@
 # Find the largest two elements in a list.
 # Return your answer in a tuple as (largest, secondLargest)
 #
-# Running Time: O(n**2)
+# Running Time: O(n)
 ############################################################################
 
 
@@ -36,19 +60,11 @@ def largest2(l):
     (7, 6)
     >>> largest2([7, 6, 5, 4, 3, 2, 1])
     (7, 6)
+    >>> largest2([-3, -5, -2, -1, -4, 0, -6])
+    (0, -1)
     """
-    max1 = l[0]
-    for n in l:
-        if n > max1:
-            max1 = n
-    if l[0] != max1:
-        max2 = l[0]
-    else:
-        max2 = l[1]
-    for n in l:
-        if n > max2 and n < max1:
-            max2 = n
-    return (max1, max2)
+    l = mergeSort(l)
+    return (l[-1], l[-2])
 
 ############################################################################
 #
