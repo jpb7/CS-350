@@ -5,7 +5,10 @@
 
 # This homework is largely review, and to make sure you have a working version of python.
 
+import math as m
+
 # Additional functions.
+
 
 def mergeSort(arr):
     """
@@ -93,9 +96,7 @@ def reverse(l):
     if not mid % 2:
         mid += 1
     while i <= mid and j >= mid:
-        temp = l[i]
-        l[i] = l[j]
-        l[j] = temp
+        l[i], l[j] = l[j], l[i]
         i += 1
         j -= 1
     return l
@@ -106,7 +107,8 @@ def reverse(l):
 # Compute the transpose of a matrix in place.
 #
 # What is the input size measuring?
-# Running Time:
+#   rows x columns
+# Running Time: O(n^2)
 ############################################################################
 
 # [[1, 2, 3],
@@ -126,9 +128,11 @@ def transpose(m):
     >>> m
     [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     """
+    # rows
     for i in range(len(m)):
-        for j in range(len(m[i])):
-            m[i][j] = m[j][i]
+        # columns
+        for j in range(i+1, len(m[i])):
+            m[i][j], m[j][i] = m[j][i], m[i][j]
     return m
 
 ############################################################################
@@ -138,16 +142,28 @@ def transpose(m):
 # The distance between two points (x1,y1) and (x2,y2) is:
 # d = sqrt((x2-x1)^2 + (y2-y1)^2)
 #
-# Running Time:
+# Running Time: O(n^2)
 ############################################################################
 
 
-# def pointDist(points):
-#    """
-#    >>> pointDist([(1,1), (4,5), (13,6)])
-#    5
-#    """
-#    pass
+def pointDist(points):
+    """
+    >>> pointDist([(1,1), (4,5), (13,6)])
+    5.0
+    >>> pointDist([(4,5), (13,6), (1,1)])
+    5.0
+    >>> pointDist([(5,7), (6,8), (10,11), (5, 6)])
+    1.0
+    """
+    min_dist = m.inf
+    for i in range(len(points) - 1):
+        x1, y1 = points[i][0], points[i][1]
+        for j in range(i+1, len(points)):
+            x2, y2 = points[j][0], points[j][1]
+            d = m.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+            if d < min_dist:
+                min_dist = d
+    return min_dist
 
 ############################################################################
 #
