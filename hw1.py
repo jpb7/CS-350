@@ -206,6 +206,8 @@ def popcount(x):
     4
     >>> popcount(256)
     1
+    >>> popcount(0)
+    0
     """
     count = 0
     while x:
@@ -213,12 +215,6 @@ def popcount(x):
             count += 1
         x = x >> 1
     return count
-
-#   count = 0
-#   for bit in bin(x)[2:]:
-#       if bit == '1':
-#           count += 1
-#   return count
 
 ############################################################################
 #
@@ -241,9 +237,15 @@ def isqrt(x):
     11
     >>> isqrt(64)
     8
+    >>> isqrt(0)
+    0
+    >>> isqrt(1)
+    1
     """
-    pass
-    #return m.floor(m.sqrt(x))
+    i = 0
+    while i**2 <= x:
+        i += 1
+    return i - 1
 
 ############################################################################
 #
