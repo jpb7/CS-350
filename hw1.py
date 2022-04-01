@@ -65,9 +65,20 @@ def largest2(l):
     (7, 6)
     >>> largest2([-3, -5, -2, -1, -4, 0, -6])
     (0, -1)
+    >>> largest2([5, 6, 7, 3, 2, 4, 1])
+    (7, 6)
     """
-    l = mergeSort(l)
-    return (l[-1], l[-2])
+    max1 = l[0]
+    max2 = l[1]
+    for n in l:
+        if n > max1:
+            max2 = max1
+            max1 = n
+        elif max1 > n > max2:
+            max2 = n
+    return max1, max2
+    #l = mergeSort(l)
+    # return l[-1], l[-2]
 
 ############################################################################
 #
