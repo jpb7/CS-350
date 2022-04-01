@@ -198,16 +198,27 @@ def pointDist(points):
 # Running Time:
 ############################################################################
 
-# def popcount(x):
-#    """
-#    >>> popcount(7)
-#    3
-#    >>> popcount(30)
-#    4
-#    >>> popcount(256)
-#    1
-#    """
-#    pass
+def popcount(x):
+    """
+    >>> popcount(7)
+    3
+    >>> popcount(30)
+    4
+    >>> popcount(256)
+    1
+    """
+    count = 0
+    while x:
+        if x & 1:
+            count += 1
+        x = x >> 1
+    return count
+
+#   count = 0
+#   for bit in bin(x)[2:]:
+#       if bit == '1':
+#           count += 1
+#   return count
 
 ############################################################################
 #
@@ -222,16 +233,17 @@ def pointDist(points):
 ############################################################################
 
 
-# def isqrt(x):
-#    """
-#    >>> isqrt(6)
-#    2
-#    >>> isqrt(121)
-#    10
-#    >>> isqrt(64)
-#    8
-#    """
-#    pass
+def isqrt(x):
+    """
+    >>> isqrt(6)
+    2
+    >>> isqrt(121)
+    11
+    >>> isqrt(64)
+    8
+    """
+    pass
+    #return m.floor(m.sqrt(x))
 
 ############################################################################
 #
