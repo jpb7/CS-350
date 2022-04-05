@@ -65,9 +65,20 @@ def largest2(l):
     (7, 6)
     >>> largest2([-3, -5, -2, -1, -4, 0, -6])
     (0, -1)
+    >>> largest2([5, 6, 7, 3, 2, 4, 1])
+    (7, 6)
     """
-    l = mergeSort(l)
-    return (l[-1], l[-2])
+    max1 = l[0]
+    max2 = l[1]
+    for n in l:
+        if n > max1:
+            max2 = max1
+            max1 = n
+        elif max1 > n > max2:
+            max2 = n
+    return max1, max2
+    #l = mergeSort(l)
+    # return l[-1], l[-2]
 
 ############################################################################
 #
@@ -176,13 +187,25 @@ def pointDist(points):
 ############################################################################
 
 
-# def matMul(A, B):
-#    """
-#    >>> matMul([[1, 2, 3], [4, 5, 6]], [[7, 8], [9, 10], [11, 12]])
-#    [[58, 64], [139, 154]]
-#    """
-#    pass
-
+def matMul(A, B):
+    """
+    >>> matMul([[1, 2, 3], [4, 5, 6]], [[7, 8], [9, 10], [11, 12]])
+    [[58, 64], [139, 154]]
+    """
+    C = [[] for row in range(len(A))]
+    i = 0
+    while i < len(A):
+        j = k = prod = 0
+        while j < len(B) and k < len(A):
+            prod += A[i][j] * B[j][k]
+            if j == len(B) - 1:
+                C[i] += [prod]
+                j = prod = 0
+                k += 1
+            else:
+                j += 1
+        i += 1
+    return C
 
 ############################################################################
 #
@@ -197,6 +220,7 @@ def pointDist(points):
 # What is the input size?
 # Running Time:
 ############################################################################
+
 
 def popcount(x):
     """
