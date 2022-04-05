@@ -317,7 +317,8 @@ def wordSearch(word, grid):
                     if not dx and not dy:
                         dy -= 1
                     k, row, col = 0, i, j
-                    while 0 <= row < len(grid) and 0 <= col < len(grid[row]) and k < len(word) and grid[row][col] == word[k]:
+                    while (0 <= row < len(grid) and 0 <= col < len(grid[row])
+                           and k < len(word) and grid[row][col] == word[k]):
                         row += dx
                         col += dy
                         k += 1
