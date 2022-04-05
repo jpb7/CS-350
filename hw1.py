@@ -270,14 +270,56 @@ def isqrt(x):
 ############################################################################
 
 
-# def wordSearch(word, grid):
-#    """
-#    >>> s = "bats"
-#    >>> g = ["abrql", "exayi", "postn", "cbkrs"]
-#    >>> wordSearch(s,g)
-#    True
-#    """
-#    pass
+def wordSearch(word, grid):
+    """
+    >>> s = "bats"
+    >>> g = ["abrql", "exayi", "postn", "cbkrs"]
+    >>> wordSearch(s,g)
+    True
+    >>> s = "abrql"
+    >>> wordSearch(s,g)
+    True
+    >>> s = "aep"
+    >>> wordSearch(s,g)
+    True
+    >>> s = "bsyl"
+    >>> wordSearch(s,g)
+    True
+    """
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            dx = 1
+            while dx > -2:
+                dy = 1
+                while dy > -2:
+                    if not dx and not dy:
+                        dy -= 1
+                    k, row, col = 0, i, j
+                    while 0 <= row < len(grid) and 0 <= col < len(grid[row]) and k < len(word) and grid[row][col] == word[k]:
+                        row += dx
+                        col += dy
+                        k += 1
+                    if k == len(word):
+                        return True
+                    #print("Letter: %s" % grid[i][j])
+                    #print("dx: %d" % dx)
+                    #print("dy: %d" % dy)
+                    dy -= 1
+                dx -= 1
+    return False
+
+    # right diagonal down
+    # for i in range(len(grid[0]) - len(word)):
+    #     j = 0
+    #     while i < len(grid) and j < len(word):
+    #         if grid[i][j] == word[j]:
+    #             print(word[j])
+    #         i += 1
+    #         j += 1
+    #     print("j: ", j)
+    #     if j == len(word):
+    #         return True
+    # return False
 
 ############################################################################
 #
