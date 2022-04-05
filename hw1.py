@@ -312,10 +312,8 @@ def wordSearch(word, grid):
     """
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            dx = 1
-            while dx > -2:
-                dy = 1
-                while dy > -2:
+            for dx in range(1, -2, -1):
+                for dy in range(1, -2, -1):
                     if not dx and not dy:
                         dy -= 1
                     k, row, col = 0, i, j
@@ -325,25 +323,7 @@ def wordSearch(word, grid):
                         k += 1
                     if k == len(word):
                         return True
-                    #print("Letter: %s" % grid[i][j])
-                    #print("dx: %d" % dx)
-                    #print("dy: %d" % dy)
-                    dy -= 1
-                dx -= 1
     return False
-
-    # right diagonal down
-    # for i in range(len(grid[0]) - len(word)):
-    #     j = 0
-    #     while i < len(grid) and j < len(word):
-    #         if grid[i][j] == word[j]:
-    #             print(word[j])
-    #         i += 1
-    #         j += 1
-    #     print("j: ", j)
-    #     if j == len(word):
-    #         return True
-    # return False
 
 ############################################################################
 #
