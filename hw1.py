@@ -358,12 +358,40 @@ def wordInGrid(k, row, col, grid, word):
 ############################################################################
 
 
-# def convexHull(points):
-#    """
-#    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
-#    [(1, 1), (4, 5), (7, 1)]
-#    """
-#    pass
+def convexHull(points):
+    """
+    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
+    [(1, 1), (4, 5), (7, 1)]
+    """
+    hull = []
+    for p1 in points:
+        for p2 in points:
+            if p1 == p2:
+                continue
+            a, b, c = makeLine(p1, p2)
+            i = 0
+            while i < len(points) and a*points[i][0] + b*points[i][1] >= c:
+                i += 1
+            if i == len(points):
+                i = 0
+                while i < len(hull) and hull[i] != p1:
+                    i += 1
+                if i == len(hull):
+                    hull += [p1]
+                i = 0
+                while i < len(hull) and hull[i] != p2:
+                    i += 1
+                if i == len(hull):
+                    hull += [p2]
+    return hull
+
+def makeLine(point1, point2):
+    x1, y1 = point1
+    x2, y2 = point2
+    a = y2 - y1
+    b = x1 - x2
+    c = x1*y2 - x2*y1
+    return (a, b, c)
 
 ############################################################################
 #
