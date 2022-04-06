@@ -364,26 +364,30 @@ def convexHull(points):
     [(1, 1), (4, 5), (7, 1)]
     """
     hull = []
-    for p1 in points:
-        for p2 in points:
-            if p1 == p2:
-                continue
+    for index, p1 in enumerate(points):
+        for p2 in points[index+1:]:
             a, b, c = makeLine(p1, p2)
             i = 0
+            # O(1) at best, O(n) at worst
             while i < len(points) and a*points[i][0] + b*points[i][1] >= c:
                 i += 1
             if i == len(points):
-                i = 0
-                while i < len(hull) and hull[i] != p1:
-                    i += 1
-                if i == len(hull):
+                if pointNotInHull(p1, hull):
                     hull += [p1]
-                i = 0
-                while i < len(hull) and hull[i] != p2:
-                    i += 1
-                if i == len(hull):
+                if pointNotInHull(p2, hull):
                     hull += [p2]
     return hull
+
+
+# O(n)
+def pointNotInHull(point, hull):
+    i = 0
+    while i < len(hull) and hull[i] != point:
+        i += 1
+    if i == len(hull):
+        return True
+    return False
+
 
 def makeLine(point1, point2):
     x1, y1 = point1
@@ -392,6 +396,7 @@ def makeLine(point1, point2):
     b = x1 - x2
     c = x1*y2 - x2*y1
     return (a, b, c)
+
 
 ############################################################################
 #
