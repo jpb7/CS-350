@@ -9,7 +9,6 @@ import math as m
 
 # Additional functions.
 
-
 def mergeSort(arr):
     """
     >>> mergeSort([3, 1, 4, 2, 6, 5])
@@ -68,8 +67,7 @@ def largest2(l):
     >>> largest2([5, 6, 7, 3, 2, 4, 1])
     (7, 6)
     """
-    max1 = l[0]
-    max2 = l[1]
+    max1, max2 = l[0], l[1]
     for n in l:
         if n > max1:
             max2 = max1
@@ -77,8 +75,6 @@ def largest2(l):
         elif max1 > n > max2:
             max2 = n
     return max1, max2
-    #l = mergeSort(l)
-    # return l[-1], l[-2]
 
 ############################################################################
 #
@@ -88,7 +84,6 @@ def largest2(l):
 #
 # Running Time: O(n/2)
 ############################################################################
-
 
 def reverse(l):
     """
@@ -106,6 +101,7 @@ def reverse(l):
     mid = len(l) // 2
     if not mid % 2:
         mid += 1
+    # O(n/2), traverse from each end and meet in middle
     while i <= mid and j >= mid:
         l[i], l[j] = l[j], l[i]
         i += 1
@@ -117,8 +113,7 @@ def reverse(l):
 # Problem 3
 # Compute the transpose of a matrix in place.
 #
-# What is the input size measuring?
-#   rows x columns
+# What is the input size measuring? rows * columns
 # Running Time: O(n^2)
 ############################################################################
 
@@ -130,7 +125,6 @@ def reverse(l):
 #  [2, 5, 8],
 #  [3, 6, 9]]
 
-
 def transpose(m):
     """
     >>> m = [[1,2,3],[4,5,6],[7,8,9]]
@@ -139,9 +133,9 @@ def transpose(m):
     >>> m
     [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     """
-    # rows
+    # O(n^2)
     for i in range(len(m)):
-        # columns
+        # O(n)
         for j in range(i+1, len(m[i])):
             m[i][j], m[j][i] = m[j][i], m[i][j]
     return m
@@ -167,8 +161,10 @@ def pointDist(points):
     1.0
     """
     min_dist = m.inf
+    # O(n^2)
     for i in range(len(points) - 1):
         x1, y1 = points[i][0], points[i][1]
+        # O(n)
         for j in range(i+1, len(points)):
             x2, y2 = points[j][0], points[j][1]
             d = m.sqrt((x2 - x1)**2 + (y2 - y1)**2)
@@ -182,10 +178,9 @@ def pointDist(points):
 # multiply two matrices A and B.
 # For the running time A is an m*n matrix, and B is an n*l matrix.
 #
-# what is the size of the output? ?*?
-# Running Time:
+# what is the size of the output? m*n
+# Running Time: O(n^2)
 ############################################################################
-
 
 def matMul(A, B):
     """
@@ -194,8 +189,10 @@ def matMul(A, B):
     """
     C = [[] for row in range(len(A))]
     i = 0
+    # O(n^2)
     while i < len(A):
         j = k = prod = 0
+        # O(n)
         while j < len(B) and k < len(A):
             prod += A[i][j] * B[j][k]
             if j == len(B) - 1:
@@ -217,8 +214,8 @@ def matMul(A, B):
 # arithmetic operations are *not* constant time.
 # bitwise operations are constant time though.
 #
-# What is the input size?
-# Running Time:
+# What is the input size? n bits in x
+# Running Time: O(n)
 ############################################################################
 
 
@@ -234,10 +231,11 @@ def popcount(x):
     0
     """
     count = 0
+    # O(n)
     while x:
         if x & 1:
             count += 1
-        x = x >> 1
+        x >>= 1
     return count
 
 ############################################################################
@@ -248,10 +246,9 @@ def popcount(x):
 #
 # You can assume that arithmetic operations are constant time for this algorithm.
 #
-# What is the input size?
-# Running Time:
+# What is the input size? n bits in x
+# Running Time: O(sqrt(n))
 ############################################################################
-
 
 def isqrt(x):
     """
@@ -267,6 +264,7 @@ def isqrt(x):
     1
     """
     i = 0
+    # O(sqrt(n))
     while i**2 <= x:
         i += 1
     return i - 1
@@ -289,10 +287,9 @@ def isqrt(x):
 #      "   t ",
 #      "    s"]
 #
-# what is your input size?
-# Running Time:
+# what is your input size? len(grid)
+# Running Time: O(n^2)
 ############################################################################
-
 
 def wordSearch(word, grid):
     """
@@ -310,21 +307,27 @@ def wordSearch(word, grid):
     >>> wordSearch(s,g)
     True
     """
+    # O(n^2)
     for i in range(len(grid)):
+        # O(n)
         for j in range(len(grid[i])):
+            # O(3)
             for dx in range(1, -2, -1):
+                # O(3)
                 for dy in range(1, -2, -1):
+                    # O(1)
                     if not dx and not dy:
                         dy -= 1
                     k, row, col = 0, i, j
+                    # O(n) worst, O(1) best
                     while (wordInGrid(k, row, col, grid, word)):
                         row += dx
                         col += dy
                         k += 1
+                    # O(1)
                     if k == len(word):
                         return True
     return False
-
 
 def wordInGrid(k, row, col, grid, word):
     return (0 <= row < len(grid) and
@@ -355,9 +358,8 @@ def wordInGrid(k, row, col, grid, word):
 #  /   \
 # *-----*
 #
-# Running Time: O(n^2) or O(n^4)
+# Running Time: O(n^2)
 ############################################################################
-
 
 def convexHull(points):
     """
@@ -366,7 +368,6 @@ def convexHull(points):
     >>> convexHull([(1,3), (2,3), (3,1), (6,6)])
     [(1, 3), (3, 1), (6, 6)]
     """
-
     hull = []
     # O(n^2)
     for p1 in points:
@@ -375,8 +376,6 @@ def convexHull(points):
             if p1 == p2:
                 continue
             a, b, c = makeLine(p1, p2)
-#            if p1 == (1,3) and p2 == (3,1):
-#                print(a, b, c)
             i = 0
             # O(1) at best, O(n) at worst
             while i < len(points) and a*points[i][0] + b*points[i][1] >= c:
@@ -399,7 +398,6 @@ def pointNotInHull(point, hull):
     if i == len(hull):
         return True
     return False
-
 
 def makeLine(point1, point2):
     x1, y1 = point1
