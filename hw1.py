@@ -7,45 +7,6 @@
 
 import math as m
 
-# Additional functions.
-
-def mergeSort(arr):
-    """
-    >>> mergeSort([3, 1, 4, 2, 6, 5])
-    [1, 2, 3, 4, 5, 6]
-    >>> mergeSort([3, 1, 4, 2, 5])
-    [1, 2, 3, 4, 5]
-    """
-    mid = len(arr) // 2
-    if not mid:
-        return arr
-    left = mergeSort(arr[:mid])
-    right = mergeSort(arr[mid:])
-    return merge(left, right)
-
-
-def merge(left, right):
-    if not left and not right:
-        return []
-    if not left:
-        return right
-    if not right:
-        return left
-    merged = []
-    i = j = 0
-    while i < len(left) and j < len(right):
-        if left[i] < right[j]:
-            merged += [left[i]]
-            i += 1
-        elif right[j] < left[i]:
-            merged += [right[j]]
-            j += 1
-    if i < len(left):
-        merged += left[i:]
-    elif j < len(right):
-        merged += right[j:]
-    return merged
-
 ############################################################################
 #
 # Problem 1
@@ -54,7 +15,6 @@ def merge(left, right):
 #
 # Running Time: O(n)
 ############################################################################
-
 
 def largest2(l):
     """
@@ -82,7 +42,7 @@ def largest2(l):
 # Reverse a list in place,
 # and returned the reversed list.
 #
-# Running Time: O(n/2)
+# Running Time: O(n)
 ############################################################################
 
 def reverse(l):
@@ -117,20 +77,11 @@ def reverse(l):
 # Running Time: O(n^2)
 ############################################################################
 
-# [[1, 2, 3],
-#  [4, 5, 6],
-#  [7, 8, 9]]
-
-# [[1, 4, 7],
-#  [2, 5, 8],
-#  [3, 6, 9]]
-
+#   Matrix must be square.
 def transpose(m):
     """
     >>> m = [[1,2,3],[4,5,6],[7,8,9]]
     >>> transpose(m)
-    [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-    >>> m
     [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
     """
     # O(n^2)
@@ -149,7 +100,6 @@ def transpose(m):
 #
 # Running Time: O(n^2)
 ############################################################################
-
 
 def pointDist(points):
     """
@@ -217,7 +167,6 @@ def matMul(A, B):
 # What is the input size? n bits in x
 # Running Time: O(n)
 ############################################################################
-
 
 def popcount(x):
     """
@@ -287,7 +236,7 @@ def isqrt(x):
 #      "   t ",
 #      "    s"]
 #
-# what is your input size? len(grid)
+# what is your input size? len(grid) * len(grid[i])
 # Running Time: O(n^2)
 ############################################################################
 
@@ -329,6 +278,7 @@ def wordSearch(word, grid):
                         return True
     return False
 
+#   Return True if letter in grid matches letter in word.
 def wordInGrid(k, row, col, grid, word):
     return (0 <= row < len(grid) and
             0 <= col < len(grid[row]) and
@@ -361,12 +311,13 @@ def wordInGrid(k, row, col, grid, word):
 # Running Time: O(n^2)
 ############################################################################
 
+#   Order of returned points may not match input.
 def convexHull(points):
     """
     >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
     [(1, 1), (4, 5), (7, 1)]
     >>> convexHull([(1,3), (2,3), (3,1), (6,6)])
-    [(1, 3), (3, 1), (6, 6)]
+    [(1, 3), (6, 6), (3, 1)]
     """
     hull = []
     # O(n^2)
@@ -388,17 +339,19 @@ def convexHull(points):
                 # O(n)
                 if pointNotInHull(p2, hull):
                     hull += [p2]
-    return sorted(hull)
+    return hull
 
-# O(n)
+#   Return True if point is not already in hull.
 def pointNotInHull(point, hull):
     i = 0
+    # O(n)
     while i < len(hull) and hull[i] != point:
         i += 1
     if i == len(hull):
         return True
     return False
 
+#   Take point1 and point2, return values such that ax + by = c.
 def makeLine(point1, point2):
     x1, y1 = point1
     x2, y2 = point2
@@ -406,7 +359,6 @@ def makeLine(point1, point2):
     b = x1 - x2
     c = x1*y2 - x2*y1
     return (a, b, c)
-
 
 ############################################################################
 #
@@ -424,9 +376,8 @@ def makeLine(point1, point2):
 # 4. f(n) = sum(i=0, n, log(i))
 #    O(n*log(n))
 # 5. f(n) = log(n!)
-#    
+#    O(log^n(n))
 ############################################################################
-
 
 if __name__ == "__main__":
     import doctest
