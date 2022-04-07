@@ -325,6 +325,7 @@ def wordSearch(word, grid):
                         return True
     return False
 
+
 def wordInGrid(k, row, col, grid, word):
     return (0 <= row < len(grid) and
             0 <= col < len(grid[row]) and
@@ -354,7 +355,7 @@ def wordInGrid(k, row, col, grid, word):
 #  /   \
 # *-----*
 #
-# Running Time:
+# Running Time: O(n^2) or O(n^4)
 ############################################################################
 
 
@@ -362,22 +363,33 @@ def convexHull(points):
     """
     >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
     [(1, 1), (4, 5), (7, 1)]
+    >>> convexHull([(1,3), (2,3), (3,1), (6,6)])
+    [(1, 3), (3, 1), (6, 6)]
     """
+
     hull = []
-    for index, p1 in enumerate(points):
-        for p2 in points[index+1:]:
+    # O(n^2)
+    for p1 in points:
+        # O(n)
+        for p2 in points:
+            if p1 == p2:
+                continue
             a, b, c = makeLine(p1, p2)
+#            if p1 == (1,3) and p2 == (3,1):
+#                print(a, b, c)
             i = 0
             # O(1) at best, O(n) at worst
             while i < len(points) and a*points[i][0] + b*points[i][1] >= c:
                 i += 1
+            # O(1)
             if i == len(points):
+                # O(n)
                 if pointNotInHull(p1, hull):
                     hull += [p1]
+                # O(n)
                 if pointNotInHull(p2, hull):
                     hull += [p2]
-    return hull
-
+    return sorted(hull)
 
 # O(n)
 def pointNotInHull(point, hull):
