@@ -416,10 +416,15 @@ def makeLine(point1, point2):
 # If the problem is a summation, give a closed form first.
 #
 # 1. f(n) = n^2 + 2n + 1
+#    O(n^2)
 # 2. f(n) = sum(i=0, n, sum(j=0, i, 1) )
+#    O(n^2)
 # 3. f(n) = (n+1)!
+#    O(n!)
 # 4. f(n) = sum(i=0, n, log(i))
+#    O(n*log(n))
 # 5. f(n) = log(n!)
+#    
 ############################################################################
 
 
