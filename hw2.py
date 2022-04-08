@@ -13,8 +13,8 @@
 # output: a pair of numbers (a,b) where a,b are in l, and a + b == s
 # findSum([1,3,5], 8) returns (3, 5)
 # 
-# What data structure did you use?
-# Running Time: 
+# What data structure did you use? hash map
+# Running Time: O(n)
 #########################################3
 
 def findSum(l, s):
@@ -22,9 +22,31 @@ def findSum(l, s):
     >>> findSum([1,3,5], 8)
     (3, 5)
     >>> findSum([1,2,5], 8)
-    None
+    >>> findSum([1,5,4,3], 4)
+    (1, 3)
     """
-    pass
+    d = {}
+    for n in l:
+        d[n] = s - n
+        if d[n] in d:
+            return (d[n], n)
+
+#    for i in range(len(l) - 1):
+#        for j in range(i, len(l)):
+#            if l[i] + l[j] == s:
+#                return (l[i], l[j])
+
+#    i = 0
+#    while i < len(l) - 1:
+#        n1 = l[i]
+#        j = i
+#        while j < len(l):
+#            n2 = l[j]
+#            if n1 + n2 == s:
+#                return (n1, n2)
+#            j += 1
+#        i += 1
+#    return None
 
 #########################################3
 # Problem 2:
@@ -40,12 +62,12 @@ def findSum(l, s):
 # Running Time: 
 #########################################3
 
-def mode(l):
-    """
-    >>> mode([1,2,3,3,4,5])
-    3
-    """
-    pass
+# def mode(l):
+#     """
+#     >>> mode([1,2,3,3,4,5])
+#     3
+#     """
+#     pass
 
 #########################################3
 # Problem 3:
@@ -85,51 +107,51 @@ def mode(l):
 # popBack Running Time: 
 #########################################3
 
-def malloc(size):
-    return [None] * size
-
-class RingBuffer():
-    """
-    >>> r = RingBuffer()
-    >>> r.pushBack(3)
-    >>> r.pushBack(4)
-    >>> r.pushBack(5)
-    >>> r.pushFront(2)
-    >>> r.pushFront(1)
-    >>> r.popFront()
-    1
-    >>> r.popFront()
-    2
-    >>> r.popFront()
-    3
-    >>> r.popFront()
-    4
-    >>> r.popFront()
-    5
-    """
-
-    def __init__(self):
-        self.size = 0
-        self.body = []
-        self.front = 0
-        self.back = 0
-
-    # This method isn't mandatory,
-    # but I suggest you implement it anyway.
-    # It will help to test this method on it's own.
-    # Think carefully about what cases you can have with front and back.
-
-    def resize(self):
-        pass
-
-    def pushFront(self, x):
-        pass
-    def pushBack(self, x):
-        pass
-    def popFront(self):
-        pass
-    def popBack(self):
-        pass
+#def malloc(size):
+#    return [None] * size
+#
+#class RingBuffer():
+#    """
+#    >>> r = RingBuffer()
+#    >>> r.pushBack(3)
+#    >>> r.pushBack(4)
+#    >>> r.pushBack(5)
+#    >>> r.pushFront(2)
+#    >>> r.pushFront(1)
+#    >>> r.popFront()
+#    1
+#    >>> r.popFront()
+#    2
+#    >>> r.popFront()
+#    3
+#    >>> r.popFront()
+#    4
+#    >>> r.popFront()
+#    5
+#    """
+#
+#    def __init__(self):
+#        self.size = 0
+#        self.body = []
+#        self.front = 0
+#        self.back = 0
+#
+#    # This method isn't mandatory,
+#    # but I suggest you implement it anyway.
+#    # It will help to test this method on it's own.
+#    # Think carefully about what cases you can have with front and back.
+#
+#    def resize(self):
+#        pass
+#
+#    def pushFront(self, x):
+#        pass
+#    def pushBack(self, x):
+#        pass
+#    def popFront(self):
+#        pass
+#    def popBack(self):
+#        pass
 
 #########################################3
 # Problem 4:
@@ -146,33 +168,33 @@ class RingBuffer():
 # pop Running Time: 
 #########################################3
 
-class Heap():
-    """
-    >>> h = Heap()
-    >>> h.push(3)
-    >>> h.push(2)
-    >>> h.push(4)
-    >>> h.push(1)
-    >>> h.push(5)
-    >>> h.pop()
-    1
-    >>> h.pop()
-    2
-    >>> h.pop()
-    3
-    >>> h.pop()
-    4
-    >>> h.pop()
-    5
-    """
-    def __init__(self):
-        pass
-
-    def push(self, x):
-        pass
-
-    def pop(self):
-        pass
+# class Heap():
+#     """
+#     >>> h = Heap()
+#     >>> h.push(3)
+#     >>> h.push(2)
+#     >>> h.push(4)
+#     >>> h.push(1)
+#     >>> h.push(5)
+#     >>> h.pop()
+#     1
+#     >>> h.pop()
+#     2
+#     >>> h.pop()
+#     3
+#     >>> h.pop()
+#     4
+#     >>> h.pop()
+#     5
+#     """
+#     def __init__(self):
+#         pass
+# 
+#     def push(self, x):
+#         pass
+# 
+#     def pop(self):
+#         pass
 
 if __name__ == "__main__":
     import doctest
