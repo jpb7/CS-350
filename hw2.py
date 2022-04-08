@@ -24,29 +24,14 @@ def findSum(l, s):
     >>> findSum([1,2,5], 8)
     >>> findSum([1,5,4,3], 4)
     (1, 3)
+    >>> findSum([1,1,3], 2)
+    (1, 1)
     """
     d = {}
     for n in l:
         d[n] = s - n
         if d[n] in d:
             return (d[n], n)
-
-#    for i in range(len(l) - 1):
-#        for j in range(i, len(l)):
-#            if l[i] + l[j] == s:
-#                return (l[i], l[j])
-
-#    i = 0
-#    while i < len(l) - 1:
-#        n1 = l[i]
-#        j = i
-#        while j < len(l):
-#            n2 = l[j]
-#            if n1 + n2 == s:
-#                return (n1, n2)
-#            j += 1
-#        i += 1
-#    return None
 
 #########################################3
 # Problem 2:
