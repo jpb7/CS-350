@@ -58,16 +58,28 @@ def findSum(l, s):
 # output: the mode of l.
 # mode([1,2,3,3,4,5]) returns 3
 # 
-# What data structure did you use?
-# Running Time: 
+# What data structure did you use? hash map
+# Running Time: O(n)
 #########################################3
 
-# def mode(l):
-#     """
-#     >>> mode([1,2,3,3,4,5])
-#     3
-#     """
-#     pass
+def mode(l):
+    """
+    >>> mode([1,2,3,3,4,5])
+    3
+    >>> mode([-8,2,-3,-8,4,-8,5,1])
+    -8
+    >>> mode([5,4,7,4,3,4,-2,0])
+    4
+    """
+    d = {}
+    mode = l[0]
+    for n in l:
+        if n not in d:
+            d[n] = 0
+        d[n] += 1
+        if d[n] > d[mode]:
+            mode = n
+    return mode
 
 #########################################3
 # Problem 3:
