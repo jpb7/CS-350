@@ -104,51 +104,78 @@ def mode(l):
 # popBack Running Time: 
 #########################################3
 
-#def malloc(size):
-#    return [None] * size
-#
-#class RingBuffer():
-#    """
-#    >>> r = RingBuffer()
-#    >>> r.pushBack(3)
-#    >>> r.pushBack(4)
-#    >>> r.pushBack(5)
-#    >>> r.pushFront(2)
-#    >>> r.pushFront(1)
-#    >>> r.popFront()
-#    1
-#    >>> r.popFront()
-#    2
-#    >>> r.popFront()
-#    3
-#    >>> r.popFront()
-#    4
-#    >>> r.popFront()
-#    5
-#    """
-#
-#    def __init__(self):
-#        self.size = 0
-#        self.body = []
-#        self.front = 0
-#        self.back = 0
-#
-#    # This method isn't mandatory,
-#    # but I suggest you implement it anyway.
-#    # It will help to test this method on it's own.
-#    # Think carefully about what cases you can have with front and back.
-#
-#    def resize(self):
-#        pass
-#
-#    def pushFront(self, x):
-#        pass
-#    def pushBack(self, x):
-#        pass
-#    def popFront(self):
-#        pass
-#    def popBack(self):
-#        pass
+def malloc(size):
+    return [None] * size
+
+class RingBuffer():
+    """
+    >>> r = RingBuffer()
+    >>> r.pushBack(3)
+    >>> r.pushBack(4)
+    >>> r.pushBack(5)
+    >>> r.pushFront(2)
+    >>> r.pushFront(1)
+    >>> r.popFront()
+    1
+    >>> r.popFront()
+    2
+    >>> r.popBack()
+    5
+    >>> r.popBack()
+    4
+    >>> r.popBack()
+    3
+    """
+
+    def __init__(self):
+        self.size = 4
+        self.body = [None] * 4
+        self.front = -1
+        self.back = 0
+
+    # This method isn't mandatory,
+    # but I suggest you implement it anyway.
+    # It will help to test this method on its own.
+    # Think carefully about what cases you can have with front and back.
+
+    def frontEqualsBack(self):
+        return self.front == self.back - self.size
+
+    def resize(self):
+        #print(self.body)
+        first = self.body[:self.back+1]
+        middle = malloc(self.size)
+        last = self.body[self.front+1:]
+        self.body = first + middle + last
+        self.size = len(self.body)
+        #print("new size: ", self.size)
+        #print(self.body)
+
+    def pushFront(self, x):
+        if self.body[self.front]:
+            self.front -= 1
+        if self.frontEqualsBack():
+            self.resize()
+        self.body[self.front] = x
+
+    def pushBack(self, x):
+        if self.body[self.back]:
+            self.back += 1
+        if self.frontEqualsBack():
+            self.resize()
+        self.body[self.back] = x
+
+    def popFront(self):
+        value = self.body[self.front]
+        if self.front < -1:
+            self.front += 1
+        return value
+
+    def popBack(self):
+        value = self.body[self.back]
+        if self.back > 0:
+            self.back -= 1
+        return value
 
 #########################################3
 # Problem 4:
