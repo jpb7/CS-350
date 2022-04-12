@@ -119,13 +119,15 @@ class RingBuffer():
     1
     >>> r.popFront()
     2
-    >>> r.popBack()
-    5
-    >>> r.popBack()
-    4
-    >>> r.popBack()
+    >>> r.popFront()
     3
+    >>> r.popFront()
+    4
+    >>> r.popFront()
+    5
     """
+
+    # Test: additional resizes, different push/pop patterns.
 
     def __init__(self):
         self.size = 4
@@ -142,14 +144,13 @@ class RingBuffer():
         return self.front == self.back - self.size
 
     def resize(self):
-        #print(self.body)
+        #print("before resize:", self.body)
         first = self.body[:self.back+1]
         middle = malloc(self.size)
         last = self.body[self.front+1:]
         self.body = first + middle + last
         self.size = len(self.body)
-        #print("new size: ", self.size)
-        #print(self.body)
+        #print("after resize: ", self.body)
 
     def pushFront(self, x):
         if self.body[self.front]:
@@ -166,9 +167,15 @@ class RingBuffer():
         self.body[self.back] = x
 
     def popFront(self):
-        value = self.body[self.front]
-        if self.front < -1:
+        #print("before pop:", self.body)
+        #print("front: ", self.front)
+        if not self.body[self.front] and self.body[self.front+1]:
             self.front += 1
+        value = self.body[self.front]
+        self.body[self.front] = None
+        self.front += 1
+        #print("after pop:", self.body)
+        #print("front: ", self.front)
         return value
 
     def popBack(self):
