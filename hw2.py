@@ -98,10 +98,10 @@ def mode(l):
 # [3, 4, None, None, None, None, 1, 2]
 #                                ^ front
 #    
-# pushFront Running Time: 
-# pushBack Running Time: 
-# popFront Running Time: 
-# popBack Running Time: 
+# pushFront Running Time: O(n) for resize
+# pushBack Running Time: O(n) for resize
+# popFront Running Time: O(1)
+# popBack Running Time: O(1)
 #########################################3
 
 def malloc(size):
@@ -125,12 +125,18 @@ class RingBuffer():
     4
     >>> r.popFront()
     5
+    >>> r.pushFront(7)
+    >>> r.pushFront(6)
+    >>> r.popFront()
+    6
+    >>> r.popBack()
+    7
     """
 
     # Test: additional resizes, different push/pop patterns.
 
     def __init__(self):
-        self.size = 4
+        self.size = 0
         self.body = [None] * 4
         self.front = -1
         self.back = 0
@@ -141,47 +147,62 @@ class RingBuffer():
     # Think carefully about what cases you can have with front and back.
 
     def frontEqualsBack(self):
-        return self.front == self.back - self.size
+        return self.front == self.back - len(self.body)
 
     def resize(self):
-        #print("before resize:", self.body)
-        first = self.body[:self.back+1]
-        middle = malloc(self.size)
-        last = self.body[self.front+1:]
-        self.body = first + middle + last
-        self.size = len(self.body)
-        #print("after resize: ", self.body)
+        if self.size == 0:
+            self.__init__()
+        else:
+            #print("before resize:", self.body)
+            first = self.body[:self.back+1]
+            middle = malloc(len(self.body))
+            last = self.body[self.front+1:]
+            self.body = first + middle + last
+            #self.size = len(self.body)
+            #print("after resize: ", self.body)
 
     def pushFront(self, x):
         if self.body[self.front]:
             self.front -= 1
-        if self.frontEqualsBack():
+        if self.frontEqualsBack() or self.size == 0:
             self.resize()
         self.body[self.front] = x
+        self.size += 1
 
     def pushBack(self, x):
         if self.body[self.back]:
             self.back += 1
-        if self.frontEqualsBack():
+        if self.frontEqualsBack() or self.size == 0:
             self.resize()
+        #while not self.body[self.back] and not self.frontEqualsBack():
+            #self.back -= 1
         self.body[self.back] = x
+        self.size += 1
 
     def popFront(self):
         #print("before pop:", self.body)
         #print("front: ", self.front)
-        if not self.body[self.front] and self.body[self.front+1]:
+        if self.size == 0:
+            self.resize()
+            return None
+        while not self.body[self.front]:
             self.front += 1
         value = self.body[self.front]
         self.body[self.front] = None
-        self.front += 1
+        self.size -= 1
         #print("after pop:", self.body)
         #print("front: ", self.front)
         return value
 
     def popBack(self):
-        value = self.body[self.back]
-        if self.back > 0:
+        if self.size == 0:
+            self.resize()
+            return None
+        while not self.body[self.back]:
             self.back -= 1
+        value = self.body[self.back]
+        self.body[self.back] = None
+        self.size -= 1
         return value
 
 #########################################3
@@ -193,7 +214,6 @@ class RingBuffer():
 # Your job is to implement these methods in Python.
 # I've given you the skeleton for the class,
 # you need to fill it in.
-# 
 # 
 # push Running Time: 
 # pop Running Time: 
