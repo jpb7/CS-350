@@ -100,8 +100,8 @@ def mode(l):
 #    
 # pushFront Running Time: O(n) for resize
 # pushBack Running Time: O(n) for resize
-# popFront Running Time: O(1)
-# popBack Running Time: O(1)
+# popFront Running Time: O(n)
+# popBack Running Time: O(n)
 #########################################3
 
 def malloc(size):
@@ -125,7 +125,7 @@ class RingBuffer():
     4
     >>> r.popFront()
     5
-    >>> r.pushFront(7)
+    >>> r.pushBack(7)
     >>> r.pushFront(6)
     >>> r.popFront()
     6
@@ -164,7 +164,7 @@ class RingBuffer():
     def pushFront(self, x):
         if self.body[self.front]:
             self.front -= 1
-        if self.frontEqualsBack() or self.size == 0:
+        if self.size == 0 or self.frontEqualsBack():
             self.resize()
         self.body[self.front] = x
         self.size += 1
@@ -172,10 +172,8 @@ class RingBuffer():
     def pushBack(self, x):
         if self.body[self.back]:
             self.back += 1
-        if self.frontEqualsBack() or self.size == 0:
+        if self.size == 0 or self.frontEqualsBack():
             self.resize()
-        #while not self.body[self.back] and not self.frontEqualsBack():
-            #self.back -= 1
         self.body[self.back] = x
         self.size += 1
 
@@ -215,37 +213,79 @@ class RingBuffer():
 # I've given you the skeleton for the class,
 # you need to fill it in.
 # 
-# push Running Time: 
+# push Running Time: O(log n)
 # pop Running Time: 
 #########################################3
 
-# class Heap():
-#     """
-#     >>> h = Heap()
-#     >>> h.push(3)
-#     >>> h.push(2)
-#     >>> h.push(4)
-#     >>> h.push(1)
-#     >>> h.push(5)
-#     >>> h.pop()
-#     1
-#     >>> h.pop()
-#     2
-#     >>> h.pop()
-#     3
-#     >>> h.pop()
-#     4
-#     >>> h.pop()
-#     5
-#     """
-#     def __init__(self):
-#         pass
-# 
-#     def push(self, x):
-#         pass
-# 
-#     def pop(self):
-#         pass
+class Heap():
+    """
+    >>> h = Heap()
+    >>> h.push(3)
+    >>> h.push(2)
+    >>> h.push(4)
+    >>> h.push(1)
+    >>> h.push(5)
+    >>> h.pop()
+    1
+    >>> h.pop()
+    2
+    >>> h.pop()
+    3
+    >>> h.pop()
+    4
+    >>> h.pop()
+    5
+    """
+    def __init__(self):
+        self.body = [None] * 7
+        self.nodes = 0
+        self.height = 0
+    
+    def resize(self):
+        self.body += [None] * len(self.body)
+
+    def partialSortUp(self, i, x):
+        offset = (i % 2) - 2
+        parent = (i - offset) // 2
+        y = self.body[parent]
+        while i >= 0 and x and y and x < y:
+            self.body[i], self.body[parent] = y, x
+            i, parent = parent, (i - offset) // 2
+            x, y = self.body[i], self.body[parent]
+        
+    def partialSortDown(self):
+        p = 0
+        c1, c2 = 1, 2
+        while p < len(self.body) and c1 < len(self.body) and c2 < len(self.body):
+            x, y, z = self.body[p], self.body[c1], self.body[c2]
+            if x and y and x > y:
+                self.body[p], self.body[c1] = y, x
+                p, c1 = c1, (2*p) + 1
+            elif x and z and x > z:
+                self.body[p], self.body[c2] = y, x
+                p, c2 = c2, (2*p) + 2
+            else:
+                break
+
+    def push(self, x):
+        print("before push:", self.body)
+        if self.nodes == len(self.body):
+            self.resize()
+        self.body[self.nodes] = x
+        self.partialSortUp(self.nodes, self.body[self.nodes])
+        self.nodes += 1
+        print("after push:", self.body)
+
+    def pop(self):
+        print("before pop:", self.body)
+        root = self.body[0]
+        if not root:
+            return None
+        self.nodes -= 1
+        self.body[0], self.body[self.nodes] = self.body[self.nodes], None
+        self.partialSortDown()
+        print("after pop:", self.body)
+        return root
 
 if __name__ == "__main__":
     import doctest
