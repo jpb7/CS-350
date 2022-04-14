@@ -133,8 +133,6 @@ class RingBuffer():
     7
     """
 
-    # Test: additional resizes, different push/pop patterns.
-
     def __init__(self):
         self.size = 0
         self.body = [None] * 4
@@ -151,15 +149,14 @@ class RingBuffer():
 
     def resize(self):
         if self.size == 0:
-            self.__init__()
+            self.body = [None] * 4
+            self.front = -1
+            self.back = 0
         else:
-            #print("before resize:", self.body)
             first = self.body[:self.back+1]
             middle = malloc(len(self.body))
             last = self.body[self.front+1:]
             self.body = first + middle + last
-            #self.size = len(self.body)
-            #print("after resize: ", self.body)
 
     def pushFront(self, x):
         if self.body[self.front]:
@@ -178,8 +175,6 @@ class RingBuffer():
         self.size += 1
 
     def popFront(self):
-        #print("before pop:", self.body)
-        #print("front: ", self.front)
         if self.size == 0:
             self.resize()
             return None
@@ -188,8 +183,6 @@ class RingBuffer():
         value = self.body[self.front]
         self.body[self.front] = None
         self.size -= 1
-        #print("after pop:", self.body)
-        #print("front: ", self.front)
         return value
 
     def popBack(self):
@@ -214,7 +207,7 @@ class RingBuffer():
 # you need to fill it in.
 # 
 # push Running Time: O(log n)
-# pop Running Time: 
+# pop Running Time: O(log n)
 #########################################3
 
 class Heap():
@@ -236,6 +229,7 @@ class Heap():
     >>> h.pop()
     5
     """
+
     def __init__(self):
         self.body = [None] * 7
         self.nodes = 0
@@ -246,45 +240,43 @@ class Heap():
 
     def partialSortUp(self, i, x):
         offset = (i % 2) - 2
-        parent = (i - offset) // 2
+        parent = (i + offset) // 2
         y = self.body[parent]
         while i >= 0 and x and y and x < y:
             self.body[i], self.body[parent] = y, x
-            i, parent = parent, (i - offset) // 2
+            i = parent
+            parent = (i + offset) // 2
             x, y = self.body[i], self.body[parent]
         
-    def partialSortDown(self):
-        p = 0
-        c1, c2 = 1, 2
-        while p < len(self.body) and c1 < len(self.body) and c2 < len(self.body):
+    def partialSortDown(self, p):
+        p, c1, c2 = 0, 1, 2
+        while c1 < self.nodes and c2 < self.nodes:
             x, y, z = self.body[p], self.body[c1], self.body[c2]
             if x and y and x > y:
                 self.body[p], self.body[c1] = y, x
-                p, c1 = c1, (2*p) + 1
+                p = c1
+                c1 = 2*p + 1
             elif x and z and x > z:
-                self.body[p], self.body[c2] = y, x
-                p, c2 = c2, (2*p) + 2
+                self.body[p], self.body[c2] = z, x
+                p = c2
+                c2 = 2*p + 2
             else:
                 break
 
     def push(self, x):
-        print("before push:", self.body)
         if self.nodes == len(self.body):
             self.resize()
         self.body[self.nodes] = x
         self.partialSortUp(self.nodes, self.body[self.nodes])
         self.nodes += 1
-        print("after push:", self.body)
 
     def pop(self):
-        print("before pop:", self.body)
         root = self.body[0]
-        if not root:
+        if root == None:
             return None
         self.nodes -= 1
         self.body[0], self.body[self.nodes] = self.body[self.nodes], None
-        self.partialSortDown()
-        print("after pop:", self.body)
+        self.partialSortDown(0)
         return root
 
 if __name__ == "__main__":
