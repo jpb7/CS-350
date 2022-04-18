@@ -16,25 +16,31 @@
 # The gap isn't 8 because even thought 9-1 is 8, there is a 4 in the middle
 # of those numbers.
 #
-# Running Time: O(n)
+# Running Time: O(n log(n))
 ############################################################################
 
 def gap(l):
+
     """
     >>> gap([1,6,2,4,9])
     3
-    >>> gap([-3, -5, 0])
-    3
+    >>> gap([-4, -5, 2, -6])
+    6
     >>> gap([0, 5, 3, 1, 12, 7])
     5
+    >>> gap([-12, -10, -2, 0])
+    8
     """
-    ult = l[0], pen = l[1]
-    for n in l:
-        if n > ult:
-            pen, ult = ult, n
-        elif n > pen:
-            pen = n
-    return ult - pen
+
+    maxGap = 0
+    l = sorted(l)
+
+    for i in range(len(l) - 1):
+        currentGap = l[i+1] - l[i]
+        if currentGap > maxGap:
+            maxGap = currentGap
+
+    return maxGap
 
 ############################################################################
 #
@@ -62,6 +68,10 @@ def gap(l):
 #    """
 #    >>> largestConcat([1,2,55,3])
 #    55321
+#    >>> largestConcat([55,9])
+#    955
+#    >>> largestConcat([56,67,64])
+#    676556
 #    """
 #    pass
 
@@ -111,4 +121,6 @@ def gap(l):
 #    """
 #    pass
 
-
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
