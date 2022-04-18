@@ -1,7 +1,7 @@
 
 # CS 350: Homework 3
 # Due: Week of 4/18
-# Name: 
+# Name: Jacob Bentley
 
 # for this homework, unless I'm asking you to sort a list,
 # you are allowed to use the sorted function in Python.
@@ -15,13 +15,26 @@
 # for example: gap([1,6,2,4,9]) == 3 because the gap between 6 and 9 is 3.
 # The gap isn't 8 because even thought 9-1 is 8, there is a 4 in the middle
 # of those numbers.
+#
+# Running Time: O(n)
 ############################################################################
+
 def gap(l):
     """
     >>> gap([1,6,2,4,9])
     3
+    >>> gap([-3, -5, 0])
+    3
+    >>> gap([0, 5, 3, 1, 12, 7])
+    5
     """
-    pass
+    ult = l[0], pen = l[1]
+    for n in l:
+        if n > ult:
+            pen, ult = ult, n
+        elif n > pen:
+            pen = n
+    return ult - pen
 
 ############################################################################
 #
@@ -38,19 +51,19 @@ def gap(l):
 #
 # Running Time: 
 ############################################################################
-def concatenate(l):
-    out = ""
-    for x in l:
-        out = out + str(x)
-    return int(out)
 
-def largestConcat(l):
-    """
-    >>> largestConcat([1,2,55,3])
-    55321
-    """
-    pass
-
+#def concatenate(l):
+#    out = ""
+#    for x in l:
+#        out = out + str(x)
+#    return int(out)
+#
+#def largestConcat(l):
+#    """
+#    >>> largestConcat([1,2,55,3])
+#    55321
+#    """
+#    pass
 
 ############################################################################
 #
@@ -60,13 +73,13 @@ def largestConcat(l):
 #
 # Running Time: 
 ############################################################################
-def numberUnique(l):
-    """
-    >>> numberUnique([3,6,2,3,2,7,4])
-    3
-    """
-    pass
 
+#def numberUnique(l):
+#    """
+#    >>> numberUnique([3,6,2,3,2,7,4])
+#    3
+#    """
+#    pass
 
 ############################################################################
 #
@@ -75,12 +88,13 @@ def numberUnique(l):
 #
 # Running Time: 
 ############################################################################
-def insertionSort(l):
-    """
-    >>> insertionSort([3,6,2,5,1])
-    [1,2,3,5,6]
-    """
-    pass
+
+#def insertionSort(l):
+#    """
+#    >>> insertionSort([3,6,2,5,1])
+#    [1,2,3,5,6]
+#    """
+#    pass
 
 ############################################################################
 #
@@ -89,11 +103,12 @@ def insertionSort(l):
 #
 # Running Time: 
 ############################################################################
-def heapSort(n):
-    """
-    >>> heapSort([3,6,2,5,1])
-    [1,2,3,5,6]
-    """
-    pass
+
+#def heapSort(n):
+#    """
+#    >>> heapSort([3,6,2,5,1])
+#    [1,2,3,5,6]
+#    """
+#    pass
 
 
