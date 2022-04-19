@@ -96,16 +96,27 @@ def largestConcat(l):
 # Write a function to return the number of unique elements in an array.
 # for example the list [3,6,2,3,2,7,4] has 3 unique elements, 6, 7, and 4.
 #
-# Running Time: 
+# Running Time: O(n)
 ############################################################################
 
-#def numberUnique(l):
-#    """
-#    >>> numberUnique([3,6,2,3,2,7,4])
-#    3
-#    """
-#    pass
-
+def numberUnique(l):
+    """
+    >>> numberUnique([3,6,2,3,2,7,4])
+    3
+    >>> numberUnique([5,5,4,7,3,3,2,1])
+    4
+    """
+    d = {}
+    count = 0
+    for n in l:
+        if n not in d:
+            d[n] = 1
+            count += 1
+        else:
+            #d[n] += 1
+            count -= 1
+    return count
+    
 ############################################################################
 #
 # Problem 4
