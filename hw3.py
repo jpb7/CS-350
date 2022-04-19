@@ -58,22 +58,37 @@ def gap(l):
 # Running Time: 
 ############################################################################
 
-#def concatenate(l):
-#    out = ""
-#    for x in l:
-#        out = out + str(x)
-#    return int(out)
-#
-#def largestConcat(l):
-#    """
-#    >>> largestConcat([1,2,55,3])
-#    55321
-#    >>> largestConcat([55,9])
-#    955
-#    >>> largestConcat([56,67,64])
-#    676556
-#    """
-#    pass
+def concatenate(l):
+    out = ""
+    for x in l:
+        out = out + str(x)
+    return int(out)
+
+def largestConcat(l):
+    """
+    >>> largestConcat([1,2,55,3])
+    55321
+    >>> largestConcat([55,9])
+    955
+    >>> largestConcat([55,67,6])
+    67655
+    >>> largestConcat([55,67,7])
+    76755
+    >>> largestConcat([5, 210, 43, 876])
+    876543210
+    """
+    #l = [str(n) for n in l]
+    return concatenate(sorted(str(n) for n in l)[::-1])
+
+#    rl = []
+#    for i in range(9, -1, -1):
+#        sl = []
+#        for n in l:
+#            if str(n)[0] == str(i):
+#                sl.append(n)
+#        if sl:
+#            rl += sorted(sl)[::-1]
+#    return concatenate(rl)
 
 ############################################################################
 #
