@@ -16,7 +16,7 @@
 # The gap isn't 8 because even thought 9-1 is 8, there is a 4 in the middle
 # of those numbers.
 #
-# Running Time: O(n log(n))
+# Running Time: O(n*log(n))
 ############################################################################
 
 def gap(l):
@@ -30,6 +30,8 @@ def gap(l):
     5
     >>> gap([-12, -10, -2, 0])
     8
+    >>> gap([])
+    0
     """
 
     maxGap = 0
@@ -55,7 +57,7 @@ def gap(l):
 #
 # Write a function to find the largest value we can get from concatenating a list.
 #
-# Running Time: O(n log(n) + n)
+# Running Time: O(n*log(n) + n)
 ############################################################################
 
 def concatenate(l):
@@ -110,8 +112,10 @@ def numberUnique(l):
 
     if not l:
         return 0
+
     d = {}
     count = 0
+
     for n in l:
         if n not in d:
             d[n] = 1
@@ -120,6 +124,7 @@ def numberUnique(l):
             d[n] += 1
         if d[n] == 2:
             count -= 1
+
     if not count:
         return 1
     return count
