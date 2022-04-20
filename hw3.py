@@ -55,7 +55,7 @@ def gap(l):
 #
 # Write a function to find the largest value we can get from concatenating a list.
 #
-# Running Time: 
+# Running Time: O(n log(n) + n)
 ############################################################################
 
 def concatenate(l):
@@ -65,6 +65,7 @@ def concatenate(l):
     return int(out)
 
 def largestConcat(l):
+
     """
     >>> largestConcat([1,2,55,3])
     55321
@@ -77,18 +78,9 @@ def largestConcat(l):
     >>> largestConcat([5, 210, 43, 876])
     876543210
     """
-    #l = [str(n) for n in l]
-    return concatenate(sorted(str(n) for n in l)[::-1])
 
-#    rl = []
-#    for i in range(9, -1, -1):
-#        sl = []
-#        for n in l:
-#            if str(n)[0] == str(i):
-#                sl.append(n)
-#        if sl:
-#            rl += sorted(sl)[::-1]
-#    return concatenate(rl)
+    l = sorted((str(n) for n in l), reverse=True)
+    return concatenate(l)
 
 ############################################################################
 #
@@ -100,12 +92,24 @@ def largestConcat(l):
 ############################################################################
 
 def numberUnique(l):
+
     """
     >>> numberUnique([3,6,2,3,2,7,4])
     3
     >>> numberUnique([5,5,4,7,3,3,2,1])
     4
+    >>> numberUnique([0,0,0,0,0])
+    1
+    >>> numberUnique([])
+    0
+    >>> numberUnique([0,0,0])
+    1
+    >>> numberUnique([0,0,0,1,2])
+    2
     """
+
+    if not l:
+        return 0
     d = {}
     count = 0
     for n in l:
@@ -113,8 +117,11 @@ def numberUnique(l):
             d[n] = 1
             count += 1
         else:
-            #d[n] += 1
+            d[n] += 1
+        if d[n] == 2:
             count -= 1
+    if not count:
+        return 1
     return count
     
 ############################################################################
@@ -125,12 +132,32 @@ def numberUnique(l):
 # Running Time: 
 ############################################################################
 
-#def insertionSort(l):
-#    """
-#    >>> insertionSort([3,6,2,5,1])
-#    [1,2,3,5,6]
-#    """
-#    pass
+def insertionSort(l):
+
+    """
+    >>> insertionSort([3,6,2,5,1])
+    [1, 2, 3, 5, 6]
+    >>> insertionSort([-3,-6,-2,-5,-1])
+    [-6, -5, -3, -2, -1]
+    >>> insertionSort([])
+    []
+    >>> insertionSort([3.2,6.1,3.1,3.0])
+    [3.0, 3.1, 3.2, 6.1]
+    >>> insertionSort(['b', 'c', 'a'])
+    ['a', 'b', 'c']
+    """
+
+    for i in range(len(l)):
+        inserted = False
+        current = l[i]
+        shift = 0
+        for j in range(0, i+1):
+            if inserted:
+                l[j], shift = shift, l[j]
+            elif current < l[j]:
+                shift, l[j] = l[j], current
+                inserted = True
+    return l
 
 ############################################################################
 #
