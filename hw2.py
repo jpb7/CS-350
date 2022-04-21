@@ -223,18 +223,34 @@ class Heap():
     >>> h.push(1)
     >>> h.push(0)
     >>> h.push(7)
+    >>> h.pop()
+    0
+    >>> h.pop()
+    1
+    >>> h.pop()
+    2
+    >>> h.pop()
+    3
+    >>> h.pop()
+    4
+    >>> h.pop()
+    5
+    >>> h.pop()
+    6
+    >>> h.pop()
+    7
     """
 
     def __init__(self):
         self.body = [None] * 5
         self.nodes = 0
-        self.height = 0
+        #self.height = 0
 
     def resize(self):
         self.body += [None] * len(self.body)
     
     def push(self, x):
-        print("pre-push:", self.body)
+        #print("pre-push:", self.body)
         if self.nodes == len(self.body):
             self.resize()
 
@@ -248,19 +264,44 @@ class Heap():
         while p >= 0 and self.body[p] > self.body[c]:
             self.body[p], self.body[c] = self.body[c], self.body[p]
             c = p
+            # shouldn't this be the same as line 250?
             p = (c - 1) // 2
 
-        print("post-push:", self.body)
+        #print("post-push:", self.body)
     
     def pop(self):
-        pass
-#        print("pre-pop:", self.body)
-#        if self.nodes == 0:
-#            return None
-#
-#        root = self.body[0]
-#
-#        print("post-pop:", self.body)
+        print("pre-pop:", self.body)
+        if self.nodes == 0:
+            return None
+
+        # cases: one item only, two items only, three items only
+
+        root = self.body[0]
+        self.nodes -= 1
+        self.body[0], self.body[self.nodes] = self.body[self.nodes], None
+
+        if self.nodes > 1:
+            height = m.ceil(m.log(self.nodes, 2))
+        else:
+            height = 1
+
+        p, lc, rc, = 0, 1, 2
+        i = 0
+
+        while i < height:
+            #c = rc if rc < lc else lc
+            if self.body[p] > self.body[lc]:
+                self.body[p], self.body[lc] = self.body[lc], self.body[p]
+            if self.body[p] > self.body[rc]:
+                self.body[p], self.body[rc] = self.body[rc], self.body[p]
+            p = rc if rc < lc else lc
+            if 2*p+2 >= self.nodes:
+                p = 0
+            lc, rc = 2*p+1, 2*p+2
+            i += 1
+
+        print("post-pop:", self.body)
+        return root
     
 #    """
 #    >>> h = Heap()
