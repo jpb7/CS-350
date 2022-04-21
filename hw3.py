@@ -172,12 +172,75 @@ def insertionSort(l):
 # Running Time: 
 ############################################################################
 
-#def heapSort(n):
-#    """
-#    >>> heapSort([3,6,2,5,1])
-#    [1,2,3,5,6]
-#    """
-#    pass
+# Helper functions for Heap from HW2 solution:
+
+def left(i):
+    return 2*i+1
+
+def right(i):
+    return 2*i+2
+
+def up(i):
+    return (i-1) // 2
+
+# Heap from HW2 solution, plus a method to check if it's empty:
+
+class Heap():
+    def __init__(self):
+        self.body = []
+    
+    def isEmpty(self):
+        return len(self.body) == 0
+
+    def push(self, x):
+        self.body.append(x)
+        i = len(self.body) - 1
+
+        while up(i) >= 0 and self.body[up(i)] > self.body[i]:
+            self.body[i], self.body[up(i)] = self.body[up(i)], self.body[i]
+            i = up(i)
+    
+    def pop(self):
+        out = self.body[0]
+        self.body[0] = self.body[-1]
+        self.body.pop()
+        i = 0
+
+        while right(i) < len(self.body) and \
+            self.body[i] > min(self.body[left(i)], self.body[right(i)]):
+
+            if self.body[left(i)] < self.body[right(i)]:
+                self.body[i], self.body[left(i)] = \
+                    self.body[left(i)], self.body[i]
+                i = left(i)
+            else:
+                self.body[i], self.body[right(i)] = \
+                    self.body[right(i)], self.body[i]
+                i = right(i)
+        
+        if left(i) < len(self.body) and self.body[i] > self.body[left(i)]:
+            self.body[i], self.body[left(i)] = self.body[left(i)], self.body[i]
+        
+        return out
+            
+def heapSort(l):
+    """
+    >>> heapSort([3,6,2,5,1])
+    [1, 2, 3, 5, 6]
+    >>> heapSort([-1, 3, -6, 5, 4])
+    [-6, -1, 3, 4, 5]
+    >>> heapSort([])
+    []
+    >>> heapSort([1])
+    [1]
+    """
+    h = Heap()
+    out = []
+    for n in l:
+        h.push(n)
+    while not h.isEmpty():
+        out.append(h.pop())
+    return out
 
 if __name__ == "__main__":
     import doctest
