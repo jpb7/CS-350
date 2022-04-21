@@ -34,9 +34,11 @@ def gap(l):
     0
     """
 
+    # O(n*log(n))
+    l.sort()
     maxGap = 0
-    l = sorted(l)
 
+    # O(n)
     for i in range(len(l) - 1):
         currentGap = l[i+1] - l[i]
         if currentGap > maxGap:
@@ -57,7 +59,7 @@ def gap(l):
 #
 # Write a function to find the largest value we can get from concatenating a list.
 #
-# Running Time: O(n*log(n) + n)
+# Running Time: O(n*log(n))
 ############################################################################
 
 def concatenate(l):
@@ -81,6 +83,7 @@ def largestConcat(l):
     876543210
     """
 
+    # O(n) + O(n*log(n)) + O(n)
     l = sorted((str(n) for n in l), reverse=True)
     return concatenate(l)
 
@@ -116,6 +119,7 @@ def numberUnique(l):
     d = {}
     count = 0
 
+    # O(n)
     for n in l:
         if n not in d:
             d[n] = 1
@@ -134,7 +138,7 @@ def numberUnique(l):
 # Problem 4
 # Implement insertion sort from class.
 #
-# Running Time: 
+# Running Time: O(n**2)
 ############################################################################
 
 def insertionSort(l):
@@ -169,7 +173,7 @@ def insertionSort(l):
 # Problem 5
 # Use the heap from last homework to sort an array.
 #
-# Running Time: 
+# Running Time: O(n*log(n))
 ############################################################################
 
 # Helper functions for Heap from HW2 solution:
@@ -183,14 +187,11 @@ def right(i):
 def up(i):
     return (i-1) // 2
 
-# Heap from HW2 solution, plus a method to check if it's empty:
+# Heap from HW2 solution:
 
 class Heap():
     def __init__(self):
         self.body = []
-    
-    def isEmpty(self):
-        return len(self.body) == 0
 
     def push(self, x):
         self.body.append(x)
@@ -235,12 +236,12 @@ def heapSort(l):
     [1]
     """
     h = Heap()
-    out = []
+    # O(n)
     for n in l:
+        # O(log(n))
         h.push(n)
-    while not h.isEmpty():
-        out.append(h.pop())
-    return out
+    # O(n) * O(log(n))
+    return [h.pop() for n in range(len(l))]
 
 if __name__ == "__main__":
     import doctest
