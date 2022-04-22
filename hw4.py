@@ -2,6 +2,8 @@
 # Due: Week of 4/4
 # Name: Jacob Bentley
 
+import math as m
+
 ############################################################################
 # Problem 1: Quicksort
 # 
@@ -50,9 +52,20 @@ def quicksort(l):
 def maxSublist(l):
     """
     >>> maxSublist([-2,1,-3,4,-1,2,1,-5,4])
-    [4,-1,2,1]
+    [4, -1, 2, 1]
     """
-    pass
+    maxSum = -m.inf
+    sublist = []
+    for i in range(len(l)):
+        for j in range(i+1, len(l)):
+            currentSum = 0
+            currentSublist = l[i:j]
+            for n in currentSublist:
+                currentSum += n
+            if currentSum > maxSum:
+                sublist = currentSublist
+                maxSum = currentSum
+    return sublist
 
 ############################################################################
 # Problem 3: Parenthesizing matrices.
