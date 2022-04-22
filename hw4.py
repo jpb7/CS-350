@@ -18,11 +18,18 @@
 def quicksort(l):
     """
     >>> quicksort([3,2,6,1,4])
-    [1,2,3,4,6]
+    [1, 2, 3, 4, 6]
     >>> quicksort([5,4,3,2,1])
-    [5,4,3,2,1]
+    [1, 2, 3, 4, 5]
+    >>> quicksort([5,5,4,3,2,1])
+    [1, 2, 3, 4, 5, 5]
     """
-    pass
+    if not l:
+        return []
+    pivot = l.pop()
+    smaller = quicksort([n for n in l if n < pivot])
+    larger = quicksort([n for n in l if n >= pivot])
+    return smaller + [pivot] + larger
 
 ############################################################################
 # Problem 2: maximum sublist sum
@@ -40,13 +47,12 @@ def quicksort(l):
 # Running time:
 ############################################################################
 
-# def maxSublist(l):
-#     """
-#     >>> maxSublist([-2,1,-3,4,-1,2,1,-5,4])
-#     [4,-1,2,1]
-#     """
-#     pass
-
+def maxSublist(l):
+    """
+    >>> maxSublist([-2,1,-3,4,-1,2,1,-5,4])
+    [4,-1,2,1]
+    """
+    pass
 
 ############################################################################
 # Problem 3: Parenthesizing matrices.
