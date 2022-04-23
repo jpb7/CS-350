@@ -46,7 +46,7 @@ def quicksort(l):
 # For example:  [-2,1,-3,4,-1,2,1,-5,4]
 # the maximum sublist is [4,-1,2,1] with a sum of 6
 # 
-# Running time:
+# Running time: O(n**3)
 ############################################################################
 
 def maxSublist(l):
@@ -54,18 +54,11 @@ def maxSublist(l):
     >>> maxSublist([-2,1,-3,4,-1,2,1,-5,4])
     [4, -1, 2, 1]
     """
-    maxSum = -m.inf
-    sublist = []
+    d = {}
     for i in range(len(l)):
-        for j in range(i+1, len(l)):
-            currentSum = 0
-            currentSublist = l[i:j]
-            for n in currentSublist:
-                currentSum += n
-            if currentSum > maxSum:
-                sublist = currentSublist
-                maxSum = currentSum
-    return sublist
+        for j in range(i, len(l)):
+            d[sum(l[i:j])] = l[i:j]
+    return d[max(d)]
 
 ############################################################################
 # Problem 3: Parenthesizing matrices.
