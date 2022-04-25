@@ -18,6 +18,7 @@ import math as m
 ############################################################################
 
 def quicksort(l):
+
     """
     >>> quicksort([3,2,6,1,4])
     [1, 2, 3, 4, 6]
@@ -26,11 +27,14 @@ def quicksort(l):
     >>> quicksort([5,5,4,3,2,1])
     [1, 2, 3, 4, 5, 5]
     """
+
     if not l:
         return []
+
     pivot = l.pop()
     smaller = quicksort([n for n in l if n < pivot])
     larger = quicksort([n for n in l if n >= pivot])
+
     return smaller + [pivot] + larger
 
 ############################################################################
@@ -50,20 +54,25 @@ def quicksort(l):
 ############################################################################
 
 def maxSublist(l):
+
     """
     >>> maxSublist([-2,1,-3,4,-1,2,1,-5,4])
     [4, -1, 2, 1]
+    >>> maxSublist([-2,1,3,2,4,-3,-5])
+    [1, 3, 2, 4]
     """
+
     d = {}
     for i in range(len(l)):
         for j in range(i, len(l)):
             d[sum(l[i:j])] = l[i:j]
+
     return d[max(d)]
 
 ############################################################################
 # Problem 3: Parenthesizing matrices.
 # 
-# If I multiply and m*l matrix A by an l*n matrix B
+# If I multiply an m*l matrix A by an l*n matrix B
 # That will take O(n*l*m) time to compute.
 #
 # If I include a n*o matrix C in this product
@@ -84,12 +93,12 @@ def maxSublist(l):
 # Running time:
 ############################################################################
 
-#def matrixParens(sizes):
-#    """
-#    >>> matrixParens([(3,5), (5,4), (4,7)])
-#    144
-#    """
-#    pass
+def matrixParens(sizes):
+    """
+    >>> matrixParens([(3,5), (5,4), (4,7)])
+    144
+    """
+    pass
 
 ############################################################################
 # Problem 4: Convex Hull again!
