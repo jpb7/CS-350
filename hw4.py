@@ -94,11 +94,15 @@ def maxSublist(l):
 ############################################################################
 
 def matrixParens(sizes):
+
     """
     >>> matrixParens([(3,5), (5,4), (4,7)])
     144
     """
-    pass
+
+    l, m, n, o = sizes[0][1], sizes[1][1], sizes[0][0], sizes[2][1]
+    left, right = n*l*m + n*m*o, l*m*o + n*l*o
+    return left if left < right else right
 
 ############################################################################
 # Problem 4: Convex Hull again!
@@ -114,12 +118,12 @@ def matrixParens(sizes):
 # When does the worst case happen?
 ############################################################################
 
-# def convexHull
-#     """
-#     >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
-#     [(1, 1), (4, 5), (7, 1)]""
-#     """
-#     pass
+def convexHull(l):
+    """
+    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
+    [(1, 1), (4, 5), (7, 1)]
+    """
+    pass
 
 ############################################################################
 # Problem 5: Recurrence relations
