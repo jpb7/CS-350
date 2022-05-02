@@ -90,7 +90,7 @@ def maxSublist(l):
 # example [(3,5), (5,4), (4,7)]
 # is 3*5*4 + 3*4*7 = 144
 # 
-# Running time:
+# Running time: O(n)
 ############################################################################
 
 def matrixParens(sizes):
@@ -98,11 +98,28 @@ def matrixParens(sizes):
     """
     >>> matrixParens([(3,5), (5,4), (4,7)])
     144
+    >>> matrixParens([(3,5), (5,4), (4,7), (7,8)])
+    564
     """
 
-    l, m, n, o = sizes[0][1], sizes[1][1], sizes[0][0], sizes[2][1]
-    left, right = n*l*m + n*m*o, l*m*o + n*l*o
-    return left if left < right else right
+    a, c = 0, 2
+    leftSum = rightSum = 0
+    while c < len(sizes):
+        A, C = sizes[a], sizes[c]
+        leftSum += A[0]*A[1]*C[0] + A[0]*C[0]*C[1]
+        rightSum += A[0]*A[1]*C[1] + A[1]*C[0]*C[1]
+        a += 1
+        c += 1
+    if leftSum < rightSum:
+        return leftSum
+    return rightSum
+
+#    l, m, n, o = sizes[0][1], sizes[1][1], sizes[0][0], sizes[2][1]
+#    left, right = n*l*m + n*m*o, l*m*o + n*l*o
+#
+#    if left < right:
+#        return left
+#    return right
 
 ############################################################################
 # Problem 4: Convex Hull again!
@@ -118,12 +135,20 @@ def matrixParens(sizes):
 # When does the worst case happen?
 ############################################################################
 
-def convexHull(l):
-    """
-    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
-    [(1, 1), (4, 5), (7, 1)]
-    """
-    pass
+#def convexHull(l):
+#    """
+#    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
+#    [(1, 1), (4, 5), (7, 1)]
+#    """
+#    sortX = sorted(l, key=lambda point: point[0])
+#    sortY = sorted(l, key=lambda point: point[1])
+#    minX, minY = sortX[0], sortY[0]
+#    maxX, maxY = sortX[-1], sortY[-1]
+#    print(minX, maxX)
+#    print(l[0], l[-1])
+#
+#def findExtrema(l):
+#    sortX = sorted(l, key=lambda point: point[0])
 
 ############################################################################
 # Problem 5: Recurrence relations
