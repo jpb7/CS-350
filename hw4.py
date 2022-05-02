@@ -2,8 +2,6 @@
 # Due: Week of 4/4
 # Name: Jacob Bentley
 
-import math as m
-
 ############################################################################
 # Problem 1: Quicksort
 # 
@@ -102,24 +100,24 @@ def matrixParens(sizes):
     564
     """
 
+    if len(sizes) < 3:
+        return None
+
     a, c = 0, 2
+    b, d = len(sizes) - 3, len(sizes) - 1
     leftSum = rightSum = 0
+
+    # A and C go left to right, B and D go right to left
     while c < len(sizes):
-        A, C = sizes[a], sizes[c]
+        A, C = sizes[a], sizes[c] 
+        B, D = sizes[b], sizes[d] 
         leftSum += A[0]*A[1]*C[0] + A[0]*C[0]*C[1]
-        rightSum += A[0]*A[1]*C[1] + A[1]*C[0]*C[1]
-        a += 1
-        c += 1
+        rightSum += B[0]*B[1]*D[1] + B[1]*D[0]*D[1]
+        a, b, c, d = a+1, b-1, c+1, d-1
+
     if leftSum < rightSum:
         return leftSum
     return rightSum
-
-#    l, m, n, o = sizes[0][1], sizes[1][1], sizes[0][0], sizes[2][1]
-#    left, right = n*l*m + n*m*o, l*m*o + n*l*o
-#
-#    if left < right:
-#        return left
-#    return right
 
 ############################################################################
 # Problem 4: Convex Hull again!
