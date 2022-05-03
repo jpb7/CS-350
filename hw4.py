@@ -175,14 +175,21 @@ def getT(p1, p2, p3):
 # If it's a divide and conquer relation, then you only need to give the Theta.
 #
 # a. Give the recurrence relation for Karatsuba's algorithm, and solve it.
+# T(1) = 1
+# T(n) = 3*T(n/2) + f(n)
+# O(n**log(3))
 # b. Give the recurrence relation for Strassen's algorithm, and solve it.
+# T(1) = 1
+# T(n) = 7*T(n/2) + cn**2 where c is a constant
+# O(n**log(7))
 # c.
 # T(1) = 1
 # T(n) = T(n-1) + n
+# O(n**2)
 # d. 
 # T(1) = 1
 # T(n) = 2T(n-2) + 1
-# 
+# O(n)
 ############################################################################
 
 
