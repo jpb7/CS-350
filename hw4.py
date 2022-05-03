@@ -7,12 +7,13 @@
 # 
 # implement quicksort described in class.
 #
-# Recurrence worst case:
-# Recurrence average case:
-# Running time worst case:
-# Running time average case:
+# Recurrence worst case: T(n) = n*T(n - 1)
+# Recurrence average case: T(n) = n*T(n/2)
+#
+# Running time worst case: O(n**2)
+# Running time average case: O(n*log(n))
 # 
-# When does the worst case happen?
+# When does the worst case happen? When the pivot is largest or smallest.
 ############################################################################
 
 def quicksort(l):
@@ -125,15 +126,17 @@ def matrixParens(sizes):
 # Use the Divide and Conquer algorithm described in class to compute
 # the convex hull of a set of points.
 #
-# Recurrence worst case:
-# Recurrence average case:
-# Running time worst case:
-# Running time average case:
+# Recurrence worst case: T(n) = 2*T(n/2) + f(n) + 1
+# Recurrence average case: T(n) = 2*T(n/2) + f(n) + 1
+#
+# Running time worst case: O(n*log(n))
+# Running time average case: O(n*log(n))
 # 
-# When does the worst case happen?
+# When does the worst case happen? Same every time.
 ############################################################################
 
 def convexHull(l):
+
     """
     >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
     [(1, 1), (4, 5), (7, 1)]
@@ -143,6 +146,7 @@ def convexHull(l):
         (1,1),(-2,-1),(2,-2),(-1,2),(0,-1)])
     [(-4, 0), (-3, -2), (-2, 3), (0, -4), (2, 4), (3, -3), (4, 0)]
     """
+
     l = sorted(l)
     hull = getHull(l) + getHull(l[::-1])
     return sorted(hull)
