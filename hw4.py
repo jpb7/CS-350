@@ -133,20 +133,50 @@ def matrixParens(sizes):
 # When does the worst case happen?
 ############################################################################
 
-#def convexHull(l):
-#    """
-#    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
-#    [(1, 1), (4, 5), (7, 1)]
-#    """
-#    sortX = sorted(l, key=lambda point: point[0])
-#    sortY = sorted(l, key=lambda point: point[1])
-#    minX, minY = sortX[0], sortY[0]
-#    maxX, maxY = sortX[-1], sortY[-1]
-#    print(minX, maxX)
-#    print(l[0], l[-1])
-#
-#def findExtrema(l):
-#    sortX = sorted(l, key=lambda point: point[0])
+def convexHull(l):
+    """
+    >>> convexHull([(1,1), (4,2), (4,5), (7,1)])
+    [(1, 1), (4, 5), (7, 1)]
+    >>> convexHull([(2,2),(-2,-2),(2,-2),(-2,2),(1,1),(1,-1),(-1,-1),(-1,1)])
+    [(-2, -2), (-2, 2), (2, -2), (2, 2)]
+    """
+    l = sorted(l)
+    hull = getHull(l) + getHull(l[::-1])
+    #print(hull)
+    return merge(hull)
+
+def merge(l):
+    d = {}
+    out = []
+    for p in sorted(l):
+        if p not in d:
+            d[p] = 1
+            out.append(p)
+    return out
+    
+def getHull(l):
+    p1, p2 = l[0], l[-1]
+    tMax = 0
+    pMax = None
+    index = 0
+    for i in range(len(l)):
+        t = getT(p1, p2, l[i])
+        if t > 0 and t > tMax:
+            tMax = t
+            pMax = l[i]
+            index = i
+    if pMax:
+        return getHull(l[:index+1]) + getHull(l[index:])
+    return [p1, p2]
+
+def getT(p1, p2, p3):
+    return p1[0]*p2[1] + p2[0]*p3[1] + p3[0]*p1[1] - \
+           (p2[0]*p1[1] + p3[0]*p2[1] + p1[0]*p3[1])
+
+#def lineOf(p1, p2):
+#    m = (p2[1] - p1[1]) / (p2[0] - p1[0])
+#    b = p2[1] - m*p2[0]
+#    return m*p2[0]
 
 ############################################################################
 # Problem 5: Recurrence relations
