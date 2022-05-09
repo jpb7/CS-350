@@ -29,7 +29,7 @@ def components(g):
     """
     d = {}
     isolated = []
-    for edge in g:
+    for edge in sorted(g):
         if len(edge) == 2:
             if edge[0] not in d:
                 d[edge[0]] = edge[1]
@@ -37,11 +37,8 @@ def components(g):
                 d[edge[1]] = edge[0]
         else:
             isolated.append(edge[0])
-    return list([sorted([x for x in d.keys()])] + [sorted(isolated)])
+    return [[x for x in d.keys()]] + [isolated]
     
-        
-        
-
 ############################################################################
 #
 # Problem 2
@@ -49,17 +46,51 @@ def components(g):
 # write a function the returns True if, and only if, graph g is bipartite
 # g is represented as an adjacency list
 #
-# Running time?
+# Running time: O(n**2)
 #
 ############################################################################
 
-# def bipartite(g):
-#     """
-#     >>> bipartite([[3,4,7], [3,5,6], [4,5,7], [0,1], [0,2], [1,2], [1], [0,2]])
-#     True
-#     """
-#     pass
+def bipartite(g):
+    """
+    >>> bipartite([[3,4,7], [3,5,6], [4,5,7], [0,1], [0,2], [1,2], [1], [0,2]])
+    True
+    >>> bipartite([[1,2], [0,3], [0,3], [0,1,2]])
+    False
+    >>> bipartite([[3],[4],[5],[0],[1],[2]])
+    False
+    """
+    A, B, C = set(g[0]), set(), set()
+    for edges in g:
+        added = False
+        for edge in edges:
+            if edge in A:
+                A.update(edges)
+                added = True
+                break
+            if edge in B:
+                B.update(edges)
+                added = True
+                break
+        if not added:
+            if not B:
+                B.update(edges)
+            else:
+                C.update(edges)
+    return not C and A and B and not A & B
 
+#    A, B = set(g[0]), set()
+#    for edges in g:
+#        added = False
+#        for edge in edges:
+#            if edge in A:
+#                A.update(edges)
+#                added = True
+#                break
+#        if not added:
+#            B.update(edges)
+#    print(A)
+#    print(B)
+#    return B and not A & B
 
 ############################################################################
 #
