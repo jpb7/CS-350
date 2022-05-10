@@ -78,20 +78,6 @@ def bipartite(g):
                 C.update(edges)
     return not C and A and B and not A & B
 
-#    A, B = set(g[0]), set()
-#    for edges in g:
-#        added = False
-#        for edge in edges:
-#            if edge in A:
-#                A.update(edges)
-#                added = True
-#                break
-#        if not added:
-#            B.update(edges)
-#    print(A)
-#    print(B)
-#    return B and not A & B
-
 ############################################################################
 #
 # Problem 3
@@ -99,18 +85,24 @@ def bipartite(g):
 # write a function the returns True if, and only if, graph g is a forrest
 # g is represented by a adjacency list.
 #
-# Running time?
+# Running time: O(n**2)
 #
 ############################################################################
 
-# def isForrest(g):
-#     """
-#     >>> isForrest([[1,2], [3,4], [5,6], [], [], [], []])
-#     True
-#     >>> isForrest([[1,2], [3,4], [5,4], [], [], []])
-#     False
-#     """
-#     pass
+def isForrest(g):
+    """
+    >>> isForrest([[1,2], [3,4], [5,6], [], [], [], []])
+    True
+    >>> isForrest([[1,2], [3,4], [5,4], [], [], []])
+    False
+    """
+    A = set()
+    for edges in g:
+        for edge in edges:
+            if edge in A:
+                return False
+            A.add(edge)
+    return True
 
 ############################################################################
 #
