@@ -115,19 +115,29 @@ def isForrest(g):
 #
 ############################################################################
 
-# def topsort(d):
-#     """
-#     >>> topsort([[1, 2], [3], [3], []])
-#     [0, 1, 2, 3]
-#     """
-#     pass
+def topsort(d):
+    """
+    >>> topsort([[1, 2], [3], [3], []])
+    [0, 1, 2, 3]
+    """
+    connected = set()
+    for i in range(len(d)):
+        connected.add(i)
+        connected.update(d[i])
+        for j in range(len(d[i+1:])):
+            if j not in connected:
+                return list(connected)
+            connected.update(d[j])
+    return list(connected)
+
 
 ############################################################################
 #
 # Problem 5
 #
 # write a function to determine the strongly connected components of digraph d.
-# Just like the components example, you should return a list of strongly connected components.
+# Just like the components example, you should return a list of strongly connected
+# components.
 #
 # Running time?
 #
