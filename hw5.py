@@ -22,6 +22,9 @@
 #
 ############################################################################
 
+from re import I
+
+
 def components(g):
     """
     >>> components([[1,2], [0,2], [0,1], [4], [3]])
@@ -111,7 +114,7 @@ def isForrest(g):
 # write a function to topologically sort the vertices of a directed graph d
 # Assume d is an adjacency list.
 #
-# Running time?
+# Running time: O(n**2)
 #
 ############################################################################
 
@@ -119,17 +122,22 @@ def topsort(d):
     """
     >>> topsort([[1, 2], [3], [3], []])
     [0, 1, 2, 3]
+    >>> topsort([[3], [0], [1], [2]])
+    [0, 3, 2, 1]
     """
-    connected = set()
-    for i in range(len(d)):
-        connected.add(i)
-        connected.update(d[i])
-        for j in range(len(d[i+1:])):
-            if j not in connected:
-                return list(connected)
-            connected.update(d[j])
-    return list(connected)
+    out = []
+    visited = [False for i in range(len(d))]
+    out = _topsort(d, 0, visited, out)
+    out.reverse()
+    return out
 
+def _topsort(d, i, visited, out):
+    visited[i] = True
+    for v in d[i][::-1]:
+        if not visited[v]:
+            _topsort(d, v, visited, out)
+    out.append(i)
+    return out
 
 ############################################################################
 #
@@ -143,14 +151,12 @@ def topsort(d):
 #
 ############################################################################
 
-# def scc(d):
-#     """
-#     >>> scc([[1], [2], [0,3], [1,2], [3,5,6], [4], [7], [8], [6]])
-#     [[0, 1, 2, 3], [4, 5], [6, 7, 8]]
-#     """
-#     pass
-
-
+#def scc(d):
+#    """
+#    >>> scc([[1], [2], [0,3], [1,2], [3,5,6], [4], [7], [8], [6]])
+#    [[0, 1, 2, 3], [4, 5], [6, 7, 8]]
+#    """
+#    pass
 
 ############################################################################
 #
