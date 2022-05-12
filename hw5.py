@@ -22,9 +22,6 @@
 #
 ############################################################################
 
-from re import I
-
-
 def components(g):
     """
     >>> components([[1,2], [0,2], [0,1], [4], [3]])
@@ -147,16 +144,33 @@ def _topsort(d, i, visited, out):
 # Just like the components example, you should return a list of strongly connected
 # components.
 #
-# Running time?
+# Running time: O(n**2)
 #
 ############################################################################
 
-#def scc(d):
-#    """
-#    >>> scc([[1], [2], [0,3], [1,2], [3,5,6], [4], [7], [8], [6]])
-#    [[0, 1, 2, 3], [4, 5], [6, 7, 8]]
-#    """
-#    pass
+def scc(d):
+    """
+    >>> scc([[1], [2], [0,3], [1,2], [3,5,6], [4], [7], [8], [6]])
+    [[0, 1, 2, 3]]
+    """
+    #[[0, 1, 2, 3], [4, 5], [6, 7, 8]]
+
+    out = [topsort(d)]
+    seen = set()
+    seen.update(out[0])
+    for i in range(len(d)):
+        for v in d[i]:
+            if v in seen:
+                continue
+            # transpose, run topsort (didn't finish)
+    return out
+
+def transpose(d):
+    t = [None] * len(d)
+    for i in range(len(d)):
+        for j in range(len(d[i])):
+            pass # didn't finish
+    return t
 
 ############################################################################
 #
@@ -164,10 +178,19 @@ def _topsort(d, i, visited, out):
 #
 # a. What do we need to change about BFS/DFS if we use an adjacency matrix?
 #
+#    Have to use indices differently since numbers become true/false values;
+#    we'd also have to use visit flags to track which vertices we've visited.
+#
 # b. What is the running time for BFS/DFS if we use an adjacency matrix?
+#    
+#    O(V**2)
 #
 # c. Give an example of a weighted graph where BFS doesn't return the shortest
 #    path.
+#    
+#    A -> B = 25
+#    A -> M -> E -> B = 10
+#       where A,M = 1, M,E = 7, and E,B = 2.
 #
 ############################################################################
 
