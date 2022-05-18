@@ -58,9 +58,38 @@ def machine(data, code):
 def largestProgram(data):
     """
     >>> largestProgram([2,3,5])
-    ["ADD", "MUL"]
+    ['ADD', 'MUL']
+    >>> largestProgram([6,3,5])
+    ['MUL', 'ADD']
+    >>> largestProgram([3,3,3])
+    ['MUL', 'ADD']
+    >>> largestProgram([9,4,7,6])
+    ['MUL', 'MUL']
+    >>> largestProgram([9,4,7,6,5])
+    ['MUL', 'MUL', 'ADD']
+    >>> largestProgram([1,4,7,6,5])
+    ['ADD', 'MUL', 'MUL']
+    >>> largestProgram([1,4,0,6,5])
+    ['ADD', 'ADD', 'ADD', 'MUL']
+    >>> largestProgram([1,4,0,6,-5])
+    ['ADD', 'ADD', 'ADD', 'ADD', 'ADD']
     """
-    pass
+    d = getLargest(data, len(data) - 1, {}, 0, [])
+    return d[max(d.keys())]
+
+def getLargest(data, i, d, total, codes):
+    if i < 0:
+        d[total] = codes
+        return d
+
+    if i > 0:
+        d = getLargest(data[:i-1], i-2, d, \
+                       total + data[i] * data[i-1], \
+                       ['MUL'] + codes)
+
+    return getLargest(data[:i], i-1, d, \
+                      total + data[i], \
+                      ['ADD'] + codes)
 
 ###########################################################################
 # Problem 2
