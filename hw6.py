@@ -1,5 +1,5 @@
 # CS 350: Homework 6
-# Due: Week of 6/16
+# Due: Week of 5/16
 # Name: Jacob Bentley
 
 import math
@@ -26,9 +26,11 @@ def machine(data, code):
 # Problem 1:
 #
 # I've constructed a new data processing language that I call addmul.
-# It is a very simple language, programs in addmul consist of two instructions.
-# ADD takes a value from the data stream and adds it to the current total.
-# MUL takes the next two number from the current data stream, multiplies them
+#
+# It is a very simple language. Programs in addmul consist of two instructions:
+#
+# ADD takes a value from the data stream and adds it to the current total;
+# MUL takes the next two numbers from the current data stream, multiplies them
 # together, and adds them to the total.
 #
 # That's it.
@@ -39,12 +41,13 @@ def machine(data, code):
 # Example:
 #
 # largestProgram([2,3,5]) should return
+#
 # ["ADD","MUL"]
 #
 # because this will return 17, where ["MUL","ADD"] will return 11, and
 # ["ADD","ADD","ADD"] will return 10.
 #
-# You can run your program by calling machine([2,3,4], ["ADD","MULL]).
+# You can run your program by calling machine([2,3,4], ["ADD","MUL"]).
 #
 # You can use `machine(numbers, largestProgram(numbers))` to test your
 # algorithm on any list of numbers.
@@ -62,7 +65,7 @@ def largestProgram(data):
 ###########################################################################
 # Problem 2
 #
-# Implement the Floyd-Warshal algorithm from class.
+# Implement the Floyd-Warshall algorithm from class.
 #
 # For example, the adjacency matrix
 #
@@ -81,17 +84,17 @@ def largestProgram(data):
 # Running Time:
 ###########################################################################
 
-def floyd(g):
-    """
-    >>> floyd([ [0, math.inf, -2, math.inf], [4, 0, 3, math.inf], [math.inf, math.inf, 0, 2], [math.inf, -1, math.inf, 0]])
-    [ [  0,  -1,  -2,   0], [  4,   0,   2,   4], [  5,   1,   0,   2], [  3,  -1,   1,   0] ]
-    """
-    pass
+# def floyd(g):
+#     """
+#     >>> floyd([ [0, math.inf, -2, math.inf], [4, 0, 3, math.inf], [math.inf, math.inf, 0, 2], [math.inf, -1, math.inf, 0]])
+#     [ [  0,  -1,  -2,   0], [  4,   0,   2,   4], [  5,   1,   0,   2], [  3,  -1,   1,   0] ]
+#     """
+#     pass
 
 ###########################################################################
 # Problem 3
 #
-# Congratulations! You know own a factory that cuts rods.
+# Congratulations! You now own a factory that cuts rods.
 #
 # Customers will pay a certain value for a length of rods. For example:
 #
@@ -108,12 +111,12 @@ def floyd(g):
 # Running Time:
 ###########################################################################
 
-def rods(weights, prices, d):
-    """
-    >>> rods([3,4,5,6,7], [2,3,6,8,11], 20)
-    30
-    """
-    pass
+# def rods(weights, prices, d):
+#     """
+#     >>> rods([3,4,5,6,7], [2,3,6,8,11], 20)
+#     30
+#     """
+#     pass
 
 ############################################################################
 # Problem 4: Parenthesizing matrices.
@@ -145,15 +148,13 @@ def rods(weights, prices, d):
 # Running time:
 ############################################################################
 
-def matrixParens(sizes):
-    """
-    >>> matrixParens([(3,5), (5,4), (4,7)])
-    144
-    """
-    pass
-
+# def matrixParens(sizes):
+#     """
+#     >>> matrixParens([(3,5), (5,4), (4,7)])
+#     144
+#     """
+#     pass
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-
