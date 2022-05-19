@@ -150,14 +150,19 @@ def rods(lengths, prices, d):
     """
     >>> rods([3,4,5,6,7], [2,3,6,8,11], 20)
     30
+    >>> rods([3,4,5,6,7], [2,3,6,8,11], 8)
+    11
+    >>> rods([3,4,5,6,7], [2,3,6,8,11], 10)
+    13
     """
     revenue = 0
     i = len(lengths) - 1
     while d and i >= 0:
         if d < lengths[i]:
             i -= 1
-        d -= lengths[i]
-        revenue += prices[i]
+        else:
+            d -= lengths[i]
+            revenue += prices[i]
     return revenue
 
 ############################################################################
