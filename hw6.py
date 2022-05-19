@@ -110,15 +110,21 @@ def getLargest(data, i, d, total, codes):
 #      [  5,   1,   0,   2], 
 #      [  3,  -1,   1,   0] ].
 #
-# Running Time:
+# Running Time: O(V**3)
 ###########################################################################
 
-# def floyd(g):
-#     """
-#     >>> floyd([ [0, math.inf, -2, math.inf], [4, 0, 3, math.inf], [math.inf, math.inf, 0, 2], [math.inf, -1, math.inf, 0]])
-#     [ [  0,  -1,  -2,   0], [  4,   0,   2,   4], [  5,   1,   0,   2], [  3,  -1,   1,   0] ]
-#     """
-#     pass
+def floyd(g):
+    """
+    >>> floyd([[0, math.inf, -2, math.inf], [4, 0, 3, math.inf], \
+        [math.inf, math.inf, 0, 2], [math.inf, -1, math.inf, 0]])
+    [[0, -1, -2, 0], [4, 0, 2, 4], [5, 1, 0, 2], [3, -1, 1, 0]]
+    """
+    dist = list(map(lambda i: list(map(lambda j: j, i)), g)) 
+    for i in range(len(g)):
+        for j in range(len(g)):
+            for k in range(len(g)):
+                dist[j][k] = min(dist[j][k], dist[j][i] + dist[i][k])
+    return dist
 
 ###########################################################################
 # Problem 3
