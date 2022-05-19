@@ -143,15 +143,22 @@ def floyd(g):
 #
 # You should return the maximum profit you can make.
 #
-# Running Time:
+# Running Time: O(n)
 ###########################################################################
 
-# def rods(weights, prices, d):
-#     """
-#     >>> rods([3,4,5,6,7], [2,3,6,8,11], 20)
-#     30
-#     """
-#     pass
+def rods(lengths, prices, d):
+    """
+    >>> rods([3,4,5,6,7], [2,3,6,8,11], 20)
+    30
+    """
+    revenue = 0
+    i = len(lengths) - 1
+    while d and i >= 0:
+        if d < lengths[i]:
+            i -= 1
+        d -= lengths[i]
+        revenue += prices[i]
+    return revenue
 
 ############################################################################
 # Problem 4: Parenthesizing matrices.
@@ -180,16 +187,35 @@ def floyd(g):
 #
 # Example: [(3,5), (5,4), (4,7)] is 3*5*4 + 3*4*7 = 144.
 # 
-# Running time:
+# Running time: O(n)
 ############################################################################
 
-# def matrixParens(sizes):
-#     """
-#     >>> matrixParens([(3,5), (5,4), (4,7)])
-#     144
-#     """
-#     pass
+def matrixParens(sizes):
+    """
+    >>> matrixParens([(3,5), (5,4), (4,7)])
+    144
+    """
+    if len(sizes) < 3:
+        return None
+
+    a, c = 0, 2
+    b, d = len(sizes) - 3, len(sizes) - 1
+    leftSum = rightSum = 0
+
+    # A and C go left to right, B and D go right to left
+    while c < len(sizes):
+        A, C = sizes[a], sizes[c] 
+        B, D = sizes[b], sizes[d] 
+        leftSum += A[0]*A[1]*C[0] + A[0]*C[0]*C[1]
+        rightSum += B[0]*B[1]*D[1] + B[1]*D[0]*D[1]
+        a, b, c, d = a+1, b-1, c+1, d-1
+
+    if leftSum < rightSum:
+        return leftSum
+    return rightSum
+
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+
