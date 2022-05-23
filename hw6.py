@@ -3,6 +3,7 @@
 # Name: Jacob Bentley
 
 import math
+from re import X
 
 def machine(data, code):
     i = 0
@@ -217,6 +218,18 @@ def matrixParens(sizes):
     if leftSum < rightSum:
         return leftSum
     return rightSum
+
+def eval(l, x):
+    """
+    >>> eval([1, 2, 3], 3)
+    31
+    """
+    result = i = 0
+    while i < len(l):
+        result += l[i] * x
+        i += 1
+        x -= 1
+    return result
 
 
 #   Enable doctesting:
