@@ -21,7 +21,7 @@ def schedule(jobs):
     [[(6, 20), (23, 29), (30, 35)], [(19, 31)], [(28, 32)], [(5, 40)]]
     """
     sched = []
-    jobs = sorted(jobs, key=lambda x: x[1])
+    jobs.sort(key=lambda x: x[1])
     while jobs:
         sched = jobsToProcessor(jobs, sched)
     return sched
@@ -38,8 +38,8 @@ def jobsToProcessor(jobs, sched):
 ################################################################
 # Problem 2
 # 
-# Given a list of strings (strings), find s short string
-# (bigstring) that for every s in string, s is a substring of
+# Given a list of strings (strings), find a short string
+# (bigstring) such that for every s in string, s is a substring of
 # bigstring.
 #
 # Use the approximation algorithm we gave in class.
@@ -47,12 +47,16 @@ def jobsToProcessor(jobs, sched):
 # Running Time: 
 ################################################################
 
-# def superstring(strings):
-#     """
-#     >>> superstring(["CADBC", "CDAABD", "BCDA", "DDCA", "ADBCADC"])
-#     'BCDAABDDCADBCADC'
-#     """
-#     pass
+def superstring(strings):
+    """
+    >>> superstring(["CADBC", "CDAABD", "BCDA", "DDCA", "ADBCADC"])
+    'BCDAABDDCADBCADC'
+    """
+    # Approximation algorithm:
+        # Look at all the strings and find which two overlap the most.
+        # Combine those two strings.
+        # Add that superstring to the set of strings.
+        # Repeat until there's only one word.
 
 ################################################################
 # Problem 3
