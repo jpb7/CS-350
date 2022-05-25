@@ -52,6 +52,8 @@ def superstring(strings):
     >>> superstring(["CADBC", "CDAABD", "BCDA", "DDCA", "ADBCADC"])
     'BCDAABDDCADBCADC'
     """
+    pass
+
     # Approximation algorithm:
         # Look at all the strings and find which two overlap the most.
         # Combine those two strings.
